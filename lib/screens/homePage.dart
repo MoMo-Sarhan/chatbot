@@ -20,6 +20,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   PageController _pageController = PageController();
   int _selectedIndex = 0;
+  List<Widget> ListPages = [
+    Center(
+      child: Text('Home Page'),
+    ),
+    Center(
+      child: Text('Books Page'),
+    ),
+    Center(
+      child: Text('Courses Progress'),
+    ),
+    Center(
+      child: Text('Chat bot'),
+    ),
+    Settings(),
+  ];
   List<MyBottomBar> BottomBarIcon = [
     MyBottomBar(
         label: 'home', ImageIcon: Icons.home, index: 0, onpressed: () {}),
@@ -79,28 +94,39 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-      body: PageView(
-          controller: _pageController,
+      body: PageView.builder(
           onPageChanged: (index) {
             setState(() {
               _selectedIndex = index;
             });
           },
-          children: [
-            Center(
-              child: Text('first page'),
-            ),
-            Center(
-              child: Text('second page'),
-            ),
-            Center(
-              child: Text('Third page'),
-            ),
-            Center(
-              child: Text('fifth page'),
-            ),
-            Settings()
-          ]),
+          controller: _pageController,
+          itemCount: ListPages.length,
+          itemBuilder: (context, index) {
+            return ListPages[index];
+          }),
+      //  PageView(
+      //     controller: _pageController,
+      //     onPageChanged: (index) {
+      //       setState(() {
+      //         _selectedIndex = index;
+      //       });
+      //     },
+      //     children: [
+      //       Center(
+      //         child: Text('first page'),
+      //       ),
+      //       Center(
+      //         child: Text('second page'),
+      //       ),
+      //       Center(
+      //         child: Text('Third page'),
+      //       ),
+      //       Center(
+      //         child: Text('fifth page'),
+      //       ),
+      //       Settings()
+      //     ]),
       bottomNavigationBar: GNav(
           activeColor: Colors.blue,
           onTabChange: (index) {

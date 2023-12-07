@@ -35,11 +35,14 @@ class _ItemState extends State<Item> {
             Spacer(
               flex: 1,
             ),
-            Text(
-              this.widget.text,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
+            SizedBox(
+              width: 100,
+              child: Text(
+                this.widget.text,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
             ),
             Spacer(

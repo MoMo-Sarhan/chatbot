@@ -12,6 +12,19 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   List<Widget> listItem = [
+    Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text(
+        'Genral Settings',
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    SizedBox(
+      height: 20,
+    ),
     Item(
       icon_1: Icons.person,
       text: 'Change Name',
