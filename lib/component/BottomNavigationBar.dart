@@ -9,7 +9,7 @@ BottomNavigationBarItem bottomNavigationBarItem(
       size: selected == bar.index ? 50 : 30,
       color: selected == bar.index ? Colors.blue : Colors.black,
     ),
+    
     label: bar.label,
-
   );
 }
