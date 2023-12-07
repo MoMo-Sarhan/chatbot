@@ -1,15 +1,12 @@
 import 'package:chatbot/models/bottomBar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
-BottomNavigationBarItem bottomNavigationBarItem(
+GButton bottomNavigationBarItem(
     {required MyBottomBar bar, required int selected}) {
-  return BottomNavigationBarItem(
-    icon: Icon(
-      bar.ImageIcon,
-      size: selected == bar.index ? 50 : 30,
-      color: selected == bar.index ? Colors.blue : Colors.black,
-    ),
-    
-    label: bar.label,
+  return GButton(
+    onPressed: bar.onpressed,
+    icon: bar.ImageIcon!,
+    text: bar.label!,
   );
 }
