@@ -8,5 +8,6 @@ GButton bottomNavigationBarItem(
     onPressed: bar.onpressed,
     icon: bar.ImageIcon!,
     text: bar.label!,
+    active: bar.index == selected ? true : false,
   );
 }

@@ -105,50 +105,35 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (context, index) {
             return ListPages[index];
           }),
-      //  PageView(
-      //     controller: _pageController,
-      //     onPageChanged: (index) {
-      //       setState(() {
-      //         _selectedIndex = index;
-      //       });
-      //     },
-      //     children: [
-      //       Center(
-      //         child: Text('first page'),
-      //       ),
-      //       Center(
-      //         child: Text('second page'),
-      //       ),
-      //       Center(
-      //         child: Text('Third page'),
-      //       ),
-      //       Center(
-      //         child: Text('fifth page'),
-      //       ),
-      //       Settings()
-      //     ]),
       bottomNavigationBar: GNav(
-          activeColor: Colors.blue,
-          onTabChange: (index) {
+        activeColor: Colors.blue,
+        onTabChange: (index) {
+          setState(() {
             _pageController.animateToPage(index,
                 duration: Duration(microseconds: 500), curve: Curves.easeInOut);
-          },
-          backgroundColor: Colors.white,
-          tabBackgroundColor: Color(0xff6229e8),
-          padding: EdgeInsets.all(16),
-          gap: 8,
-          tabs: [
-            bottomNavigationBarItem(
-                bar: BottomBarIcon[0], selected: _selectedIndex),
-            bottomNavigationBarItem(
-                bar: BottomBarIcon[1], selected: _selectedIndex),
-            bottomNavigationBarItem(
-                bar: BottomBarIcon[2], selected: _selectedIndex),
-            bottomNavigationBarItem(
-                bar: BottomBarIcon[3], selected: _selectedIndex),
-            bottomNavigationBarItem(
-                bar: BottomBarIcon[4], selected: _selectedIndex),
-          ]),
+          });
+        },
+        backgroundColor: Colors.white,
+        tabBackgroundColor: Color(0xff6229e8),
+        selectedIndex: _selectedIndex,
+        padding: EdgeInsets.all(16),
+        gap: 8,
+        tabs: BottomBarIcon.map((bottomBar) => bottomNavigationBarItem(
+            bar: bottomBar, selected: _selectedIndex)).toList(),
+
+        // [
+        //   bottomNavigationBarItem(
+        //       bar: BottomBarIcon[0], selected: _selectedIndex),
+        //   bottomNavigationBarItem(
+        //       bar: BottomBarIcon[1], selected: _selectedIndex),
+        //   bottomNavigationBarItem(
+        //       bar: BottomBarIcon[2], selected: _selectedIndex),
+        //   bottomNavigationBarItem(
+        //       bar: BottomBarIcon[3], selected: _selectedIndex),
+        //   bottomNavigationBarItem(
+        //       bar: BottomBarIcon[4], selected: _selectedIndex),
+        // ]
+      ),
     );
   }
 }
