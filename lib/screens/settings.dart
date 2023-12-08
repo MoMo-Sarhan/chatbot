@@ -1,7 +1,44 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:chatbot/component/item.dart';
+import 'package:chatbot/component/setting_appbar.dart';
+import 'package:chatbot/models/settingItem.dart';
+import 'package:chatbot/screens/setting_pages/change_name_page.dart';
 import 'package:flutter/material.dart';
+
+void onpressed() {}
+List<SettingModel> settingItems = [
+  SettingModel(
+      text: 'Change Name',
+      icon_1: Icons.person,
+      icon_2: Icons.arrow_forward_ios,
+      onpressed: () {}),
+  SettingModel(
+      text: 'Lock profile',
+      icon_1: Icons.lock,
+      icon_2: Icons.arrow_forward_ios,
+      onpressed: () {}),
+  SettingModel(
+      text: 'Language',
+      icon_1: Icons.language,
+      icon_2: Icons.arrow_forward_ios,
+      onpressed: () {}),
+  SettingModel(
+      text: 'Apperance',
+      icon_1: Icons.dark_mode_outlined,
+      icon_2: Icons.dark_mode,
+      onpressed: () {}),
+  SettingModel(
+      text: 'Rate The App',
+      icon_1: Icons.star,
+      icon_2: Icons.arrow_forward_ios,
+      onpressed: () {}),
+  SettingModel(
+      text: 'Privcy and Terms',
+      icon_1: Icons.person,
+      icon_2: Icons.arrow_forward_ios,
+      onpressed: () {}),
+];
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -11,6 +48,14 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  void change_name() {
+    setState(() {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return ChangeNamePage();
+      }));
+    });
+  }
+
   List<Widget> listItem = [
     CircleAvatar(
       radius: 100,
@@ -31,50 +76,47 @@ class _SettingsState extends State<Settings> {
       height: 20,
     ),
     Item(
-      icon_1: Icons.person,
-      text: 'Change Name',
-      icon_2: Icons.arrow_forward_ios,
-      onpressed: () {},
-    ),
+        settingItem: SettingModel(
+            text: 'Change Name',
+            icon_1: Icons.person,
+            icon_2: Icons.arrow_forward_ios,
+            onpressed: () {})),
     Item(
-        icon_1: Icons.lock,
-        text: 'Lock profile',
-        icon_2: Icons.arrow_forward_ios,
-        onpressed: () {}),
+        settingItem: SettingModel(
+            text: 'Get Notifications',
+            icon_1: Icons.notifications,
+            icon_2: Icons.toggle_off_outlined,
+            onpressed: () {})),
     Item(
-        icon_1: Icons.language,
-        text: 'Language',
-        icon_2: Icons.arrow_forward_ios,
-        onpressed: () {}),
+        settingItem: SettingModel(
+            text: 'Language',
+            icon_1: Icons.language,
+            icon_2: Icons.arrow_forward_ios,
+            onpressed: () {})),
     Item(
-        icon_1: Icons.dark_mode,
-        text: 'Apperance',
-        icon_2: Icons.dark_mode_outlined,
-        onpressed: () {}),
+        settingItem: SettingModel(
+            text: 'Apperance',
+            icon_1: Icons.dark_mode_outlined,
+            icon_2: Icons.dark_mode,
+            onpressed: () {})),
     Item(
-        icon_1: Icons.star,
-        text: 'Rate The App',
-        icon_2: Icons.arrow_forward_ios,
-        onpressed: () {}),
+        settingItem: SettingModel(
+            text: 'Rate The App',
+            icon_1: Icons.star,
+            icon_2: Icons.arrow_forward_ios,
+            onpressed: () {})),
     Item(
-        icon_1: Icons.edit_document,
-        text: 'Privcy and Terms',
-        icon_2: Icons.arrow_forward_ios,
-        onpressed: () {})
+        settingItem: SettingModel(
+            text: 'Privcy and Terms',
+            icon_1: Icons.person,
+            icon_2: Icons.arrow_forward_ios,
+            onpressed: () {})),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-        ),
-        backgroundColor: Color(0xff6229e8),
-        title: Center(child: Text('Profile')),
-      ),
+      appBar: SettingAppBar(title: 'Profile'),
       body: ListView.builder(
           itemCount: listItem.length,
           itemBuilder: (context, index) {

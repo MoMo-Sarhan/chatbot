@@ -1,25 +1,40 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:chatbot/models/settingItem.dart';
+import 'package:chatbot/screens/setting_pages/Language_page.dart';
+import 'package:chatbot/screens/setting_pages/change_name_page.dart';
 import 'package:flutter/material.dart';
 
 class Item extends StatefulWidget {
-  Item({
-    super.key,
-    required this.icon_1,
-    required this.text,
-    required this.icon_2,
-    required this.onpressed,
-  });
-  IconData icon_1;
-  IconData icon_2;
-  String text;
-  Function() onpressed;
-
+  Item({required this.settingItem});
+  SettingModel settingItem;
   @override
   State<Item> createState() => _ItemState();
 }
 
 class _ItemState extends State<Item> {
+  void onPressed() {
+    setState(() {
+      if (this.widget.settingItem.text == 'Change Name') {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ChangeNamePage()));
+      }
+
+      if (this.widget.settingItem.text == 'Apperance') {
+        var temp = this.widget.settingItem.icon_1;
+        this.widget.settingItem.icon_1 = this.widget.settingItem.icon_2;
+        this.widget.settingItem.icon_2 = temp;
+      }
+      if (this.widget.settingItem.text == 'Language') {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LanguagePage()));
+      }
+      if (this.widget.settingItem.text == 'Get Notifications') {
+        this.widget.settingItem.icon_1 = Icons.notifications_active;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +45,7 @@ class _ItemState extends State<Item> {
               flex: 1,
             ),
             Icon(
-              this.widget.icon_1,
+              this.widget.settingItem.icon_1,
             ),
             Spacer(
               flex: 1,
@@ -38,7 +53,7 @@ class _ItemState extends State<Item> {
             SizedBox(
               width: 100,
               child: Text(
-                this.widget.text,
+                this.widget.settingItem.text,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
@@ -49,9 +64,9 @@ class _ItemState extends State<Item> {
               flex: 2,
             ),
             IconButton(
-              onPressed: this.widget.onpressed,
+              onPressed: this.onPressed,
               icon: Icon(
-                this.widget.icon_2,
+                this.widget.settingItem.icon_2,
               ),
             ),
           ]),

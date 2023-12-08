@@ -10,8 +10,6 @@ class MyBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style:
-            ButtonStyle(minimumSize: MaterialStateProperty.all(Size(60, 40))),
         onPressed: this.ontap,
         child: Text(
           this.text,

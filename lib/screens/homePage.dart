@@ -5,6 +5,7 @@ import 'package:chatbot/models/bottomBar.dart';
 import 'package:chatbot/models/icons.dart';
 import 'package:chatbot/component/Icons.dart';
 import 'package:chatbot/screens/login.dart';
+import 'package:chatbot/screens/setting_pages/change_name_page.dart';
 import 'package:chatbot/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:chatbot/models/icons.dart';
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
       child: Text('Chat bot'),
     ),
     Settings(),
+    ChangeNamePage(),
   ];
   List<MyBottomBar> BottomBarIcon = [
     MyBottomBar(
@@ -120,19 +122,6 @@ class _HomePageState extends State<HomePage> {
         gap: 8,
         tabs: BottomBarIcon.map((bottomBar) => bottomNavigationBarItem(
             bar: bottomBar, selected: _selectedIndex)).toList(),
-
-        // [
-        //   bottomNavigationBarItem(
-        //       bar: BottomBarIcon[0], selected: _selectedIndex),
-        //   bottomNavigationBarItem(
-        //       bar: BottomBarIcon[1], selected: _selectedIndex),
-        //   bottomNavigationBarItem(
-        //       bar: BottomBarIcon[2], selected: _selectedIndex),
-        //   bottomNavigationBarItem(
-        //       bar: BottomBarIcon[3], selected: _selectedIndex),
-        //   bottomNavigationBarItem(
-        //       bar: BottomBarIcon[4], selected: _selectedIndex),
-        // ]
       ),
     );
   }

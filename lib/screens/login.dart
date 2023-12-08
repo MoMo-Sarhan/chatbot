@@ -79,7 +79,6 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: MyBottom(
                   ontap: () {
-                    print('pressed');
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
