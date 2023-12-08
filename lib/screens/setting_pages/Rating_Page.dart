@@ -12,7 +12,14 @@ class RatingPage extends StatefulWidget {
 }
 
 class _RatingPageState extends State<RatingPage> {
-  double rate = 0;
+  List<String> rateImage = [
+    'assets/images/rate_icons/1.png',
+    'assets/images/rate_icons/2.png',
+    'assets/images/rate_icons/3.png',
+    'assets/images/rate_icons/4.png',
+    'assets/images/rate_icons/5.png',
+  ];
+  double rate = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +55,11 @@ class _RatingPageState extends State<RatingPage> {
                   color: rate == 5 ? Colors.amber : Colors.black),
             ),
           ),
+          CircleAvatar(
+            radius: 40,
+            backgroundColor: Color(0xff6229e8),
+            child: Image(image: AssetImage(rateImage[rate.toInt() - 1])),
+          ),
           Spacer(
             flex: 2,
           ),
@@ -55,7 +67,9 @@ class _RatingPageState extends State<RatingPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Submit')),
+              child: Text(
+                'Submit',
+              )),
           Spacer(
             flex: 3,
           ),
