@@ -33,19 +33,21 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Center(
             child: CircleAvatar(
-              radius: 40,
+              radius: 50,
               backgroundImage: AssetImage(
-                'assets/images/1.jpg',
+                'assets/images/icon.png',
               ),
             ),
           ),
           SizedBox(
             height: 30,
           ),
-          Text(
-            'Welcome Back',
-            style: TextStyle(
-              fontSize: 30,
+          Center(
+            child: Text(
+              'Welcome Back',
+              style: TextStyle(
+                fontSize: 30,
+              ),
             ),
           ),
           MyTextFiled(
@@ -79,7 +81,6 @@ class _LoginPageState extends State<LoginPage> {
                   ontap: () {
                     print('pressed');
                     Navigator.pushReplacement(
-
                       context,
                       MaterialPageRoute(
                         builder: (context) {

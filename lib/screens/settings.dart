@@ -12,6 +12,11 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   List<Widget> listItem = [
+    CircleAvatar(
+      radius: 100,
+      backgroundColor: Colors.white,
+      child: Image(image: AssetImage('assets/images/icon.png')),
+    ),
     Padding(
       padding: const EdgeInsets.all(16.0),
       child: Text(
