@@ -3,6 +3,7 @@
 import 'package:chatbot/main.dart';
 import 'package:chatbot/models/settingItem.dart';
 import 'package:chatbot/screens/setting_pages/Language_page.dart';
+import 'package:chatbot/screens/setting_pages/Rating_Page.dart';
 import 'package:chatbot/screens/setting_pages/change_name_page.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,10 @@ class _ItemState extends State<Item> {
         this.widget.settingItem.icon_2 = notificationFlag
             ? Icons.toggle_on_rounded
             : Icons.toggle_off_outlined;
+      }
+      if (this.widget.settingItem.text == 'Rate The App') {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => RatingPage()));
       }
     });
   }
