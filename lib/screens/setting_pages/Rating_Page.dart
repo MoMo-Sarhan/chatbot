@@ -42,7 +42,10 @@ class _RatingPageState extends State<RatingPage> {
             padding: EdgeInsets.all(20),
             child: Text(
               '${rate}',
-              style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  color: rate == 5 ? Colors.amber : Colors.black),
             ),
           ),
           Spacer(
