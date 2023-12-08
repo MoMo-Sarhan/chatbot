@@ -21,4 +21,4 @@ A new Flutter project.
 <br>
 <h1>Setting Page</h1>
 <br>
-<img src='./screen_shot/Screenshot_1701989496.png' width=200 hight=300/>
+<img src='./screen_shot/setting.png' width=200 hight=300/>
