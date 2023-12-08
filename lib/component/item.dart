@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:chatbot/main.dart';
 import 'package:chatbot/models/settingItem.dart';
 import 'package:chatbot/screens/setting_pages/Language_page.dart';
 import 'package:chatbot/screens/setting_pages/change_name_page.dart';
@@ -30,7 +31,12 @@ class _ItemState extends State<Item> {
             context, MaterialPageRoute(builder: (context) => LanguagePage()));
       }
       if (this.widget.settingItem.text == 'Get Notifications') {
-        this.widget.settingItem.icon_1 = Icons.notifications_active;
+        notificationFlag = !notificationFlag;
+        this.widget.settingItem.icon_1 =
+            notificationFlag ? Icons.notifications_active : Icons.notifications;
+        this.widget.settingItem.icon_2 = notificationFlag
+            ? Icons.toggle_on_rounded
+            : Icons.toggle_off_outlined;
       }
     });
   }
