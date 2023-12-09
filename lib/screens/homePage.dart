@@ -5,8 +5,9 @@ import 'package:chatbot/models/bottomBar.dart';
 import 'package:chatbot/models/icons.dart';
 import 'package:chatbot/component/Icons.dart';
 import 'package:chatbot/screens/loginPage.dart';
+import 'package:chatbot/screens/notificationPage.dart';
 import 'package:chatbot/screens/setting_pages/change_name_page.dart';
-import 'package:chatbot/screens/settings.dart';
+import 'package:chatbot/screens/settingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:chatbot/models/icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -69,9 +70,9 @@ class _HomePageState extends State<HomePage> {
               actions: [
                 IconButton(
                     onPressed: () {
-                      Navigator.removeRoute(context,
+                      Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return LoginPage();
+                        return NotificationPage();
                       }));
                     },
                     icon: Icon(Icons.notifications)),

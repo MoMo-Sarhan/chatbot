@@ -65,7 +65,7 @@ class _SettingsState extends State<Settings> {
     Padding(
       padding: const EdgeInsets.all(16.0),
       child: Text(
-        'Genral Settings',
+        'General Settings',
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
