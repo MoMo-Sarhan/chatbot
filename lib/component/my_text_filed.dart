@@ -21,19 +21,25 @@ class _MyTextFiledState extends State<MyTextFiled> {
   Widget build(BuildContext context) {
     return TextField(
       style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 17,
+      ),
       controller: this.widget.controller,
       obscureText: this.widget.obscureText,
       decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         hintText: this.widget.hintNext,
         hintStyle: TextStyle(
           color: Color.fromARGB(255, 130, 138, 212),
         ),
-        suffix: this.widget.hintNext == 'Password'
+        suffixIcon: this.widget.hintNext == 'Password'
             ? IconButton(
-                icon: Icon(widget.obscureText
-                    ? Icons.visibility_off
-                    : Icons.visibility),
+                icon: Icon(
+                  widget.obscureText ? Icons.visibility_off : Icons.visibility,
+                ),
                 onPressed: () {
                   setState(() {
                     widget.obscureText = !widget.obscureText;
