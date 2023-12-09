@@ -30,7 +30,7 @@ class _ChangeNamePageState extends State<ChangeNamePage> {
           padding: const EdgeInsets.all(20.0),
           child: MyTextFiled(
               controller: lastNameConroller,
-              hintNext: 'First Name',
+              hintNext: 'Last Name',
               obscureText: false),
         ),
         Padding(

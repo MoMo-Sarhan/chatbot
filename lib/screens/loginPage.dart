@@ -101,6 +101,29 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ],
+          ),
+          SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'forget password?',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                  ),
+                ),
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Reset now!',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          decoration: TextDecoration.underline),
+                    ))
+              ],
+            ),
           )
         ]),
       ),

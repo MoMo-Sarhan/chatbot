@@ -20,12 +20,14 @@ class _MyTextFiledState extends State<MyTextFiled> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: TextStyle(
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
       controller: this.widget.controller,
       obscureText: this.widget.obscureText,
       decoration: InputDecoration(
         hintText: this.widget.hintNext,
         hintStyle: TextStyle(
-          color: Colors.white,
+          color: Color.fromARGB(255, 130, 138, 212),
         ),
         suffix: this.widget.hintNext == 'Password'
             ? IconButton(

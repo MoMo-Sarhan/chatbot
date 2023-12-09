@@ -33,6 +33,7 @@ class _ItemState extends State<Item> {
       }
       if (this.widget.settingItem.text == 'Get Notifications') {
         notificationFlag = !notificationFlag;
+        print(notificationFlag);
         this.widget.settingItem.icon_1 =
             notificationFlag ? Icons.notifications_active : Icons.notifications;
         this.widget.settingItem.icon_2 = notificationFlag

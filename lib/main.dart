@@ -4,7 +4,7 @@ import 'package:chatbot/screens/homePage.dart';
 import 'package:chatbot/screens/loginPage.dart';
 import 'package:flutter/material.dart';
 
-bool notificationFlag = false;
+bool notificationFlag = true;
 void main() {
   runApp(const MyApp());
 }
