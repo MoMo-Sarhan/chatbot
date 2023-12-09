@@ -22,7 +22,10 @@ class _LanguagePageState extends State<LanguagePage> {
         CheckboxListTile(
             title: Text(
               'English',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: select_En ? Colors.black : Colors.grey),
             ),
             value: select_En,
             onChanged: (index) {
@@ -34,7 +37,10 @@ class _LanguagePageState extends State<LanguagePage> {
         CheckboxListTile(
             title: Text(
               'Arabic',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: select_Ar ? Colors.black : Colors.grey),
             ),
             value: select_Ar,
             onChanged: (index) {

@@ -23,22 +23,23 @@ class _MyTextFiledState extends State<MyTextFiled> {
       controller: this.widget.controller,
       obscureText: this.widget.obscureText,
       decoration: InputDecoration(
-          hintText: this.widget.hintNext,
-          hintStyle: TextStyle(
-            color: Colors.white,
-          ),
-          suffix: this.widget.hintNext == 'Password'
-              ? IconButton(
-                  icon: Icon(widget.obscureText
-                      ? Icons.visibility_off
-                      : Icons.visibility),
-                  onPressed: () {
-                    setState(() {
-                      widget.obscureText = !widget.obscureText;
-                    });
-                  },
-                )
-              : null),
+        hintText: this.widget.hintNext,
+        hintStyle: TextStyle(
+          color: Colors.white,
+        ),
+        suffix: this.widget.hintNext == 'Password'
+            ? IconButton(
+                icon: Icon(widget.obscureText
+                    ? Icons.visibility_off
+                    : Icons.visibility),
+                onPressed: () {
+                  setState(() {
+                    widget.obscureText = !widget.obscureText;
+                  });
+                },
+              )
+            : null,
+      ),
     );
   }
 }

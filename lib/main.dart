@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatbot/screens/homePage.dart';
-import 'package:chatbot/screens/login.dart';
+import 'package:chatbot/screens/loginPage.dart';
 import 'package:flutter/material.dart';
 
 bool notificationFlag = false;

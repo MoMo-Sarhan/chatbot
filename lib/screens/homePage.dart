@@ -4,7 +4,7 @@ import 'package:chatbot/component/BottomNavigationBar.dart';
 import 'package:chatbot/models/bottomBar.dart';
 import 'package:chatbot/models/icons.dart';
 import 'package:chatbot/component/Icons.dart';
-import 'package:chatbot/screens/login.dart';
+import 'package:chatbot/screens/loginPage.dart';
 import 'package:chatbot/screens/setting_pages/change_name_page.dart';
 import 'package:chatbot/screens/settings.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
       child: Text('Chat bot'),
     ),
     Settings(),
-    ChangeNamePage(),
   ];
   List<MyBottomBar> BottomBarIcon = [
     MyBottomBar(
@@ -58,7 +57,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedIndex == 4
+      appBar: _selectedIndex == 4 || _selectedIndex == 3
           ? null
           : AppBar(
               shape: RoundedRectangleBorder(
@@ -70,13 +69,20 @@ class _HomePageState extends State<HomePage> {
               actions: [
                 IconButton(
                     onPressed: () {
-                      Navigator.push(context,
+                      Navigator.removeRoute(context,
                           MaterialPageRoute(builder: (context) {
                         return LoginPage();
                       }));
                     },
-                    icon: Icon(Icons.login)),
-                IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+                    icon: Icon(Icons.notifications)),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return LoginPage();
+                      }));
+                    },
+                    icon: Icon(Icons.logout)),
               ],
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -87,10 +93,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                    'Hello,Mohamed Sarhan',
+                    'Mohamed Sarhan',
                     style: TextStyle(
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
                     ),
                   )
                 ],

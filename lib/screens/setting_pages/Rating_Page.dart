@@ -13,6 +13,7 @@ class RatingPage extends StatefulWidget {
 
 class _RatingPageState extends State<RatingPage> {
   List<String> rateImage = [
+    'assets/images/rate_icons/0.gif',
     'assets/images/rate_icons/1.png',
     'assets/images/rate_icons/2.png',
     'assets/images/rate_icons/3.png',
@@ -58,7 +59,7 @@ class _RatingPageState extends State<RatingPage> {
           CircleAvatar(
             radius: 40,
             backgroundColor: Color(0xff6229e8),
-            child: Image(image: AssetImage(rateImage[rate.toInt() - 1])),
+            child: Image(image: AssetImage(rateImage[rate.toInt()])),
           ),
           Spacer(
             flex: 2,
