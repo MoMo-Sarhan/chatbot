@@ -4,6 +4,7 @@ import 'package:chatbot/component/BottomNavigationBar.dart';
 import 'package:chatbot/models/bottomBar.dart';
 import 'package:chatbot/models/icons.dart';
 import 'package:chatbot/component/Icons.dart';
+import 'package:chatbot/screens/chatPage.dart';
 import 'package:chatbot/screens/loginPage.dart';
 import 'package:chatbot/screens/notificationPage.dart';
 import 'package:chatbot/screens/setting_pages/change_name_page.dart';
@@ -32,9 +33,7 @@ class _HomePageState extends State<HomePage> {
     Center(
       child: Text('Courses Progress'),
     ),
-    Center(
-      child: Text('Chat bot'),
-    ),
+    ChatPage(),
     Settings(),
   ];
   List<MyBottomBar> BottomBarIcon = [
