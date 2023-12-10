@@ -3,7 +3,6 @@
 import 'package:chatbot/component/CourseCard.dart';
 import 'package:chatbot/component/setting_appbar.dart';
 import 'package:chatbot/models/Course.dart';
-import 'package:chatbot/screens/settingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

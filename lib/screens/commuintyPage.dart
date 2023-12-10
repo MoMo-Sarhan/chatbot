@@ -1,8 +1,7 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: curly_braces_in_flow_control_structures, use_key_in_widget_constructors
 
 import 'package:chatbot/component/PostCard.dart';
 import 'package:chatbot/component/communityAppBar.dart';
-import 'package:chatbot/component/setting_appbar.dart';
 import 'package:chatbot/models/postCardModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,7 +12,7 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  ScrollController _PostListController = ScrollController();
+  ScrollController _postListController = ScrollController();
   bool _isAppBarVisible = true;
 
   List<PostCardModel> PostCardItems = [
@@ -55,19 +54,19 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   void initState() {
     super.initState();
-    _PostListController.addListener(_handleScroll);
+    _postListController.addListener(_handleScroll);
   }
 
   @override
   void dispose() {
-    _PostListController.removeListener(_handleScroll);
-    _PostListController.dispose();
+    _postListController.removeListener(_handleScroll);
+    _postListController.dispose();
     super.dispose();
   }
 
   void _handleScroll() {
-    if (!_PostListController.position.outOfRange) {
-      if (_PostListController.position.userScrollDirection ==
+    if (!_postListController.position.outOfRange) {
+      if (_postListController.position.userScrollDirection ==
           ScrollDirection.reverse) {
         // Scrolling down
         if (_isAppBarVisible) {
@@ -75,7 +74,7 @@ class _CommunityPageState extends State<CommunityPage> {
             _isAppBarVisible = false;
           });
         }
-      } else if (_PostListController.position.userScrollDirection ==
+      } else if (_postListController.position.userScrollDirection ==
           ScrollDirection.forward) {
         // Scrolling up
         if (!_isAppBarVisible) {
@@ -93,7 +92,7 @@ class _CommunityPageState extends State<CommunityPage> {
       backgroundColor: Color(0xff6229e8),
       appBar: _isAppBarVisible ? CommunityAppBar(title: 'Coummunity') : null,
       body: ListView.builder(
-        controller: _PostListController,
+        controller: _postListController,
         itemCount: PostCardItems.length, // Adjust the number of posts as needed
         itemBuilder: (context, index) {
           return PostCard(
