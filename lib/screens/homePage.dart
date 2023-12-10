@@ -1,132 +1,70 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors
 
-import 'package:chatbot/component/BottomNavigationBar.dart';
-import 'package:chatbot/models/bottomBar.dart';
-import 'package:chatbot/models/icons.dart';
-import 'package:chatbot/component/Icons.dart';
-import 'package:chatbot/screens/loginPage.dart';
-import 'package:chatbot/screens/notificationPage.dart';
-import 'package:chatbot/screens/setting_pages/change_name_page.dart';
-import 'package:chatbot/screens/settingsPage.dart';
-import 'package:chatbot/screens/temp.dart';
 import 'package:flutter/material.dart';
-import 'package:chatbot/models/icons.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+
+class UserProfile {
+  String username;
+  String bio;
+  String profilePictureUrl;
+  List<String> socialMediaLinks;
+
+  UserProfile({
+    required this.username,
+    required this.bio,
+    required this.profilePictureUrl,
+    required this.socialMediaLinks,
+  });
+}
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final UserProfile userProfile = UserProfile(
+    username: 'John Doe',
+    bio: 'Flutter Developer',
+    profilePictureUrl: 'https://example.com/profile_picture.jpg',
+    socialMediaLinks: [
+      'https://twitter.com/johndoe',
+      'https://github.com/johndoe'
+    ],
+  );
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  PageController _pageController = PageController();
-  int _selectedIndex = 0;
-  List<Widget> ListPages = [
-    Center(
-      child: Text('Home Page'),
-    ),
-    Center(
-      child: Text('Books Page'),
-    ),
-    Center(
-      child: Text('Courses Progress'),
-    ),
-    ChatPage(),
-    Settings(),
-  ];
-  List<MyBottomBar> BottomBarIcon = [
-    MyBottomBar(
-        label: 'home', ImageIcon: Icons.home, index: 0, onpressed: () {}),
-    MyBottomBar(
-        label: 'Books', ImageIcon: Icons.book, index: 1, onpressed: () {}),
-    MyBottomBar(
-        label: 'Courses',
-        ImageIcon: Icons.library_books,
-        index: 2,
-        onpressed: () {}),
-    MyBottomBar(
-        label: 'Chat', ImageIcon: Icons.chat, index: 3, onpressed: () {}),
-    MyBottomBar(
-        label: 'Profile',
-        ImageIcon: Icons.person_3_rounded,
-        index: 4,
-        onpressed: () {})
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedIndex == 4 || _selectedIndex == 3
-          ? null
-          : AppBar(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              backgroundColor: Color(0xff6229e8),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return NotificationPage();
-                      }));
-                    },
-                    icon: Icon(Icons.notifications)),
-                IconButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return LoginPage();
-                      }));
-                    },
-                    icon: Icon(Icons.logout)),
-              ],
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(
-                      'assets/images/icon.png',
-                    ),
-                  ),
-                  Text(
-                    'Mohamed Sarhan',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  )
-                ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage('assets/images/icon.png')),
+            SizedBox(height: 16),
+            Text(widget.userProfile.username,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 16),
+            Text(widget.userProfile.bio, style: TextStyle(fontSize: 16)),
+            SizedBox(height: 16),
+            Text('Social Media Links',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            ...widget.userProfile.socialMediaLinks.map(
+              (link) => ListTile(
+                title: Text(link),
               ),
             ),
-      body: PageView.builder(
-          onPageChanged: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          controller: _pageController,
-          itemCount: ListPages.length,
-          itemBuilder: (context, index) {
-            return ListPages[index];
-          }),
-      bottomNavigationBar: GNav(
-        activeColor: Colors.blue,
-        onTabChange: (index) {
-          setState(() {
-            _pageController.animateToPage(index,
-                duration: Duration(microseconds: 500), curve: Curves.easeInOut);
-          });
-        },
-        backgroundColor: Colors.white,
-        tabBackgroundColor: Color(0xff6229e8),
-        selectedIndex: _selectedIndex,
-        padding: EdgeInsets.all(16),
-        gap: 8,
-        tabs: BottomBarIcon.map((bottomBar) => bottomNavigationBarItem(
-            bar: bottomBar, selected: _selectedIndex)).toList(),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Add custom action when the button is pressed
+              },
+              child: Text('Custom Action'),
+            ),
+          ],
+        ),
       ),
     );
   }

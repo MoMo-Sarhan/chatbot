@@ -2,7 +2,7 @@
 
 import 'package:chatbot/component/loginBottom.dart';
 import 'package:chatbot/component/my_text_filed.dart';
-import 'package:chatbot/screens/homePage.dart';
+import 'package:chatbot/screens/mainPage.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return HomePage();
+                          return MainPage();
                         },
                       ),
                     );
@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return HomePage();
+                          return MainPage();
                         },
                       ),
                     );

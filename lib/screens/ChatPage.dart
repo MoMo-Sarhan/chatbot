@@ -16,13 +16,9 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final ScrollController _listViewController = ScrollController();
   TextEditingController _messageConroller = TextEditingController();
-  List<MessageContainer> MessagesItem = [];
-  @override
-  void initState() {
-    super.initState();
-
-    MessagesItem.add(MessageContainer(message: 'Welcome', id: 'bot'));
-  }
+  List<MessageContainer> MessagesItem = [
+    MessageContainer(message: 'Welcome', id: 'bot')
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +30,7 @@ class _ChatPageState extends State<ChatPage> {
         Expanded(
           child: _buildlistView(),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: MyTextFiled(
-                  controller: _messageConroller,
-                  hintNext: 'Enter Message',
-                  obscureText: false,
-                ),
-              ),
-            ),
-            IconButton(onPressed: SendMessage, icon: Icon(Icons.send))
-          ],
-        )
+        _inputTextField()
       ]),
     );
   }
@@ -56,18 +38,19 @@ class _ChatPageState extends State<ChatPage> {
   void SendMessage() {
     setState(() {
       if (_messageConroller.text.isNotEmpty) {
-        _listViewController.position.maxScrollExtent;
         MessagesItem.add(
             MessageContainer(message: _messageConroller.text, id: 'User'));
         _messageConroller.clear();
         MyDelayFun(duration: Duration(seconds: 20));
         MessagesItem.add(
             MessageContainer(message: 'not Have Answer yet', id: 'bot'));
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _listViewController.animateTo(
             _listViewController.position.maxScrollExtent,
-            curve: Curves.bounceIn,
+            curve: Curves.easeOut,
             duration: Duration(milliseconds: 3));
-      }
+      });
     });
   }
 
@@ -76,6 +59,30 @@ class _ChatPageState extends State<ChatPage> {
       itemCount: MessagesItem.length,
       itemBuilder: ((context, index) => MessagesItem[index]),
       controller: _listViewController,
+    );
+  }
+
+  Widget _inputTextField() {
+    return Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: MyTextFiled(
+              controller: _messageConroller,
+              hintNext: 'Enter Message',
+              obscureText: false,
+            ),
+          ),
+        ),
+        IconButton(
+            onPressed: SendMessage,
+            icon: Icon(
+              Icons.send,
+              color: Colors.blue,
+              size: 35,
+            ))
+      ],
     );
   }
 }

@@ -22,7 +22,6 @@ class _MyTextFiledState extends State<MyTextFiled> {
     return TextField(
       style: TextStyle(
         color: Colors.white,
-        fontWeight: FontWeight.bold,
         fontSize: 17,
       ),
       controller: this.widget.controller,
@@ -33,7 +32,7 @@ class _MyTextFiledState extends State<MyTextFiled> {
         ),
         hintText: this.widget.hintNext,
         hintStyle: TextStyle(
-          color: Color.fromARGB(255, 130, 138, 212),
+          color: Color.fromARGB(255, 161, 167, 228),
         ),
         suffixIcon: this.widget.hintNext == 'Password'
             ? IconButton(
