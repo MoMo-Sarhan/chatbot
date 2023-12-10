@@ -23,7 +23,8 @@ class _CourseCardState extends State<CourseCard> {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.transparent)),
+          backgroundColor: MaterialStateProperty.all(Color(0xff6229e8)),
+        ),
         onPressed: () {
           Navigator.push(
             context,

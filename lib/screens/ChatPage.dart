@@ -89,7 +89,6 @@ class _ChatPageState extends State<ChatPage> {
             curve: Curves.easeOut,
             duration: Duration(milliseconds: 3));
       });
-      if (_isAppBarVisible) _isAppBarVisible = false;
     });
   }
 
