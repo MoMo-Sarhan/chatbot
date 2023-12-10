@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Color(0xff6229e8),
       appBar: AppBar(
         backgroundColor: Color(0xff6229e8),
-        title: Text('Login'),
+        title: Center(child: Text('Login')),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),

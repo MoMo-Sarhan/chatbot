@@ -5,6 +5,7 @@ import 'package:chatbot/component/delay.dart';
 import 'package:chatbot/component/my_text_filed.dart';
 import 'package:chatbot/component/setting_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -15,6 +16,43 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final ScrollController _listViewController = ScrollController();
+  bool _isAppBarVisible = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _listViewController.addListener(_handleScroll);
+  }
+
+  @override
+  void dispose() {
+    _listViewController.removeListener(_handleScroll);
+    _listViewController.dispose();
+    super.dispose();
+  }
+
+  void _handleScroll() {
+    if (!_listViewController.position.outOfRange) {
+      if (_listViewController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        // Scrolling down
+        if (_isAppBarVisible) {
+          setState(() {
+            _isAppBarVisible = false;
+          });
+        }
+      } else if (_listViewController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        // Scrolling up
+        if (!_isAppBarVisible) {
+          setState(() {
+            _isAppBarVisible = true;
+          });
+        }
+      }
+    }
+  }
+
   TextEditingController _messageConroller = TextEditingController();
   List<MessageContainer> MessagesItem = [
     MessageContainer(message: 'Welcome', id: 'bot')
@@ -25,7 +63,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: Color(0xff6229e8),
       //TODO - disapper when scroll
-      appBar: SettingAppBar(title: 'Chat Bot'),
+      appBar: _isAppBarVisible ? SettingAppBar(title: 'Chat Bot') : null,
       body: Column(children: [
         Expanded(
           child: _buildlistView(),
@@ -51,6 +89,7 @@ class _ChatPageState extends State<ChatPage> {
             curve: Curves.easeOut,
             duration: Duration(milliseconds: 3));
       });
+      if (_isAppBarVisible) _isAppBarVisible = false;
     });
   }
 
