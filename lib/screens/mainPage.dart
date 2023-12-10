@@ -5,6 +5,7 @@ import 'package:chatbot/models/bottomBar.dart';
 import 'package:chatbot/models/icons.dart';
 import 'package:chatbot/component/Icons.dart';
 import 'package:chatbot/screens/CoursesPage.dart';
+import 'package:chatbot/screens/commuintyPage.dart';
 import 'package:chatbot/screens/homePage.dart';
 import 'package:chatbot/screens/loginPage.dart';
 import 'package:chatbot/screens/notificationPage.dart';
@@ -27,9 +28,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   List<Widget> ListPages = [
     HomePage(),
-    Center(
-      child: Text('Books Page'),
-    ),
+    CommunityPage(),
     CoursesPage(),
     ChatPage(),
     Settings(),
@@ -38,7 +37,10 @@ class _MainPageState extends State<MainPage> {
     MyBottomBar(
         label: 'home', ImageIcon: Icons.home, index: 0, onpressed: () {}),
     MyBottomBar(
-        label: 'Books', ImageIcon: Icons.book, index: 1, onpressed: () {}),
+        label: 'Community',
+        ImageIcon: Icons.people_alt,
+        index: 1,
+        onpressed: () {}),
     MyBottomBar(
         label: 'Courses',
         ImageIcon: Icons.library_books,
@@ -55,7 +57,10 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedIndex == 4 || _selectedIndex == 3 || _selectedIndex == 2
+      appBar: _selectedIndex == 4 ||
+              _selectedIndex == 3 ||
+              _selectedIndex == 2 ||
+              _selectedIndex == 1
           ? null
           : AppBar(
               shape: RoundedRectangleBorder(
