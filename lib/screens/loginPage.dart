@@ -3,7 +3,10 @@
 import 'package:chatbot/component/loginBottom.dart';
 import 'package:chatbot/component/my_text_filed.dart';
 import 'package:chatbot/screens/mainPage.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +19,10 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool showPassword = true;
+
+  void LogIn() {
+    final AuthService = Provider.of<AuthService>(context, listen: false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,22 +88,13 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     );
                   },
-                  text: 'Sign In',
+                  text: 'Sign Up',
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MyBottom(
-                  ontap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return MainPage();
-                        },
-                      ),
-                    );
-                  },
+                  ontap: LogIn,
                   text: 'Login',
                 ),
               ),

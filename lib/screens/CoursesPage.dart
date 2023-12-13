@@ -14,7 +14,7 @@ class CoursesPage extends StatefulWidget {
 }
 
 class _CoursesPageState extends State<CoursesPage> {
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
   bool _isAppBarVisible = true;
   List<CourseCard> CoursesItem = [
     CourseCard(course: Course(courseName: 'Machine Learning', progress: .20)),
