@@ -1,12 +1,12 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_build_context_synchronously
 
 import 'package:chatbot/component/loginBottom.dart';
 import 'package:chatbot/component/my_text_filed.dart';
 import 'package:chatbot/screens/mainPage.dart';
 import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,8 +20,27 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
   bool showPassword = true;
 
-  void LogIn() {
-    final AuthService = Provider.of<AuthService>(context, listen: false);
+  void LogIn() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    try {
+      await authService.signInWithEmailandPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${e.toString()}')),
+      );
+    }
+  }
+
+  void SignUp() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    try {
+      await authService.signUpWithEmailAndPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
   @override
@@ -78,16 +97,7 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MyBottom(
-                  ontap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return MainPage();
-                        },
-                      ),
-                    );
-                  },
+                  ontap: SignUp,
                   text: 'Sign Up',
                 ),
               ),

@@ -17,19 +17,13 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -52,11 +46,30 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCtmlwgM5vi6gEgIvRWfd5gTZ5sqK9OsS4',
+    appId: '1:973267061723:web:ce9bfaf846c66d08bcb5fe',
+    messagingSenderId: '973267061723',
+    projectId: 'chatbot-73dcd',
+    authDomain: 'chatbot-73dcd.firebaseapp.com',
+    storageBucket: 'chatbot-73dcd.appspot.com',
+    measurementId: 'G-8S96QN1RRQ',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC75_JFv-vtkroFwb3knecfZWUGgGdfQCY',
     appId: '1:973267061723:android:2de2c34fe3d79552bcb5fe',
     messagingSenderId: '973267061723',
     projectId: 'chatbot-73dcd',
     storageBucket: 'chatbot-73dcd.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCE-g1Tzks2UUcWunYTO3Do6FI0GeH3ueA',
+    appId: '1:973267061723:ios:3655b30e9f6b3a22bcb5fe',
+    messagingSenderId: '973267061723',
+    projectId: 'chatbot-73dcd',
+    storageBucket: 'chatbot-73dcd.appspot.com',
+    iosBundleId: 'com.example.chatbot',
   );
 }

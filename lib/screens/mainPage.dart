@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names
 
 import 'package:chatbot/component/BottomNavigationBar.dart';
 import 'package:chatbot/models/bottomBar.dart';
@@ -9,8 +9,10 @@ import 'package:chatbot/screens/loginPage.dart';
 import 'package:chatbot/screens/notificationPage.dart';
 import 'package:chatbot/screens/settingsPage.dart';
 import 'package:chatbot/screens/ChatPage.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -50,6 +52,14 @@ class _MainPageState extends State<MainPage> {
         index: 4,
         onpressed: () {})
   ];
+
+  void SignOut() async {
+    setState(() {});
+    final authService = Provider.of<AuthService>(context, listen: false);
+    await authService.SignOut();
+    print("Sign out successufl");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,14 +76,7 @@ class _MainPageState extends State<MainPage> {
               ),
               backgroundColor: Color(0xff6229e8),
               actions: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return NotificationPage();
-                      }));
-                    },
-                    icon: Icon(Icons.notifications)),
+                IconButton(onPressed: SignOut, icon: Icon(Icons.notifications)),
                 IconButton(
                     onPressed: () {
                       Navigator.pushReplacement(context,
