@@ -22,16 +22,19 @@ class _SignUpPageState extends State<SignUpPage> {
   final confirmPasswordController = TextEditingController();
   bool showPassword = true;
 
-
   void SignUp() async {
     final authService = Provider.of<AuthService>(context, listen: false);
     try {
-      if (passwordController.text == confirmPasswordController.text) {
-        await authService.signUpWithEmailAndPassword(
-            emailController.text, passwordController.text);
-      } else {
-        passwordController.clear();
-        confirmPasswordController.clear();
+      if (emailController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty &&
+          confirmPasswordController.text.isNotEmpty) {
+        if (passwordController.text == confirmPasswordController.text) {
+          await authService.signUpWithEmailAndPassword(
+              emailController.text, passwordController.text);
+        } else {
+          passwordController.clear();
+          confirmPasswordController.clear();
+        }
       }
     } catch (e) {
       ScaffoldMessenger.of(context)

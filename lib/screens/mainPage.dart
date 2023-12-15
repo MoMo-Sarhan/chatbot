@@ -79,15 +79,15 @@ class _MainPageState extends State<MainPage> {
               ),
               backgroundColor: Color(0xff6229e8),
               actions: [
-                IconButton(onPressed: LogOut, icon: Icon(Icons.notifications)),
                 IconButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context,
+                      Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return LoginPage();
+                        return NotificationPage();
                       }));
                     },
-                    icon: Icon(Icons.logout)),
+                    icon: Icon(Icons.notifications)),
+                IconButton(onPressed: LogOut, icon: Icon(Icons.logout)),
               ],
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
