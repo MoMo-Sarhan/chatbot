@@ -34,7 +34,8 @@ class _MyTextFiledState extends State<MyTextFiled> {
         hintStyle: TextStyle(
           color: Color.fromARGB(255, 161, 167, 228),
         ),
-        suffixIcon: this.widget.hintNext == 'Password'
+        suffixIcon: this.widget.hintNext.toLowerCase() == 'password' ||
+                this.widget.hintNext.toLowerCase() == 'confirm password'
             ? IconButton(
                 icon: Icon(
                   widget.obscureText ? Icons.visibility_off : Icons.visibility,

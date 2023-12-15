@@ -2,6 +2,7 @@
 
 import 'package:chatbot/component/loginBottom.dart';
 import 'package:chatbot/component/my_text_filed.dart';
+import 'package:chatbot/screens/SignUpPage.dart';
 import 'package:chatbot/screens/mainPage.dart';
 import 'package:chatbot/services/auth/auth_service.dart';
 import 'package:chatbot/services/auth/auth_service.dart';
@@ -91,24 +92,12 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 30,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MyBottom(
-                  ontap: SignUp,
-                  text: 'Sign Up',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MyBottom(
-                  ontap: LogIn,
-                  text: 'Login',
-                ),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: MyBottom(
+              ontap: LogIn,
+              text: 'Login',
+            ),
           ),
           SizedBox(
             child: Row(
@@ -127,6 +116,34 @@ class _LoginPageState extends State<LoginPage> {
                       'Reset now!',
                       style: TextStyle(
                           color: Colors.white,
+                          fontSize: 15,
+                          decoration: TextDecoration.underline),
+                    ))
+              ],
+            ),
+          ),
+          SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'don\'t have an account yet?',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                  ),
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return SignUpPage();
+                      }));
+                    },
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                          color: Colors.blue,
                           fontSize: 15,
                           decoration: TextDecoration.underline),
                     ))

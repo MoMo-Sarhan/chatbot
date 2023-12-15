@@ -10,6 +10,8 @@ import 'package:chatbot/screens/notificationPage.dart';
 import 'package:chatbot/screens/settingsPage.dart';
 import 'package:chatbot/screens/ChatPage.dart';
 import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -53,10 +55,11 @@ class _MainPageState extends State<MainPage> {
         onpressed: () {})
   ];
 
-  void SignOut() async {
+  void LogOut() async {
     setState(() {});
     final authService = Provider.of<AuthService>(context, listen: false);
     await authService.SignOut();
+    FirebaseAuth.instance.signOut();
     print("Sign out successufl");
   }
 
@@ -76,7 +79,7 @@ class _MainPageState extends State<MainPage> {
               ),
               backgroundColor: Color(0xff6229e8),
               actions: [
-                IconButton(onPressed: SignOut, icon: Icon(Icons.notifications)),
+                IconButton(onPressed: LogOut, icon: Icon(Icons.notifications)),
                 IconButton(
                     onPressed: () {
                       Navigator.pushReplacement(context,
