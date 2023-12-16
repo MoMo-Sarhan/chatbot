@@ -35,6 +35,8 @@ class _SignUpPageState extends State<SignUpPage> {
           passwordController.clear();
           confirmPasswordController.clear();
         }
+
+        Navigator.pop(context);
       }
     } catch (e) {
       ScaffoldMessenger.of(context)

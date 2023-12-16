@@ -4,6 +4,8 @@ import 'package:chatbot/component/MessageContainer.dart';
 import 'package:chatbot/component/delay.dart';
 import 'package:chatbot/component/my_text_filed.dart';
 import 'package:chatbot/component/setting_appbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -16,6 +18,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final ScrollController _listViewController = ScrollController();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   bool _isAppBarVisible = true;
 
   @override
@@ -64,6 +67,10 @@ class _ChatPageState extends State<ChatPage> {
       backgroundColor: Color(0xff6229e8),
       //TODO - disapper when scroll
       appBar: _isAppBarVisible ? SettingAppBar(title: 'Chat Bot') : null,
+      drawer: Drawer(
+        child: _buildUserList(),
+        backgroundColor: Colors.blue,
+      ),
       body: Column(children: [
         Expanded(
           child: _buildlistView(),
@@ -122,5 +129,41 @@ class _ChatPageState extends State<ChatPage> {
             ))
       ],
     );
+  }
+
+  Widget _buildUserList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Error');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildListItem(doc))
+              .toList(),
+        );
+      },
+    );
+  }
+
+  Widget _buildListItem(DocumentSnapshot docs) {
+    Map<String, dynamic> data = docs.data()! as Map<String, dynamic>;
+    if (_firebaseAuth.currentUser!.email != data['email']) {
+      return ListTile(
+        title: Text(
+          data['email'],
+          style: TextStyle(color: Colors.white),
+        ),
+        onTap: () {},
+      );
+    } else {
+      return Container(
+        child: Text('me'),
+      );
+    }
   }
 }

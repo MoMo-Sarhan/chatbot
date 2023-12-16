@@ -24,8 +24,11 @@ class _LoginPageState extends State<LoginPage> {
   void LogIn() async {
     final authService = Provider.of<AuthService>(context, listen: false);
     try {
-      await authService.signInWithEmailandPassword(
-          emailController.text, passwordController.text);
+      if (emailController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty) {
+        await authService.signInWithEmailandPassword(
+            emailController.text, passwordController.text);
+      }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${e.toString()}')),
@@ -82,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
             height: 30,
           ),
           Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.all(3.0),
             child: MyBottom(
               ontap: LogIn,
               text: 'Login',
