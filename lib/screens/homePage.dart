@@ -1,5 +1,8 @@
 //ignore_for_file: prefer_const_constructors
 
+import 'package:chatbot/screens/ChatPage.dart';
+import 'package:chatbot/screens/chatPage2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +26,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+
   String? getUserEmail() {
     User? user = FirebaseAuth.instance.currentUser;
     return user!.email;
@@ -47,39 +53,50 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/images/icon.png')),
-              SizedBox(height: 16),
-              Text(userProfile!.username,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              SizedBox(height: 16),
-              Text(userProfile!.bio, style: TextStyle(fontSize: 16)),
-              SizedBox(height: 16),
-              Text('Social Media Links',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              ...userProfile!.socialMediaLinks.map(
-                (link) => ListTile(
-                  title: Text(link),
-                ),
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  // Add custom action when the button is pressed
-                },
-                child: Text('Custom Action'),
-              ),
-            ],
-          ),
-        ),
-      ]),
+      body: _buildUserList(),
     );
+  }
+
+  Widget _buildUserList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('users').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Error');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+        return ListView(
+          children: snapshot.data!.docs
+              .map<Widget>((doc) => _buildListItem(doc))
+              .toList(),
+        );
+      },
+    );
+  }
+
+  Widget _buildListItem(DocumentSnapshot docs) {
+    Map<String, dynamic> data = docs.data()! as Map<String, dynamic>;
+    if (_firebaseAuth.currentUser!.email != data['email']) {
+      return ListTile(
+        title: Text(
+          data['email'],
+          style: TextStyle(color: Colors.black),
+        ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return ChatPage2(
+              reciverId: data['uid'],
+              reciverEmail: data['email'],
+            );
+          }));
+        },
+      );
+    } else {
+      return Container(
+        child: Text('me'),
+      );
+    }
   }
 }
