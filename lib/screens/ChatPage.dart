@@ -25,6 +25,7 @@ class _ChatPageState extends State<ChatPage> {
   User? currentUSer;
   bool _isAppBarVisible = true;
   String? reciverId;
+  String? pageTitle;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _ChatPageState extends State<ChatPage> {
     _listViewController.addListener(_handleScroll);
     currentUSer = _firebaseAuth.currentUser;
     reciverId = _firebaseAuth.currentUser!.uid;
+    pageTitle = currentUSer!.email.toString().split('@')[0];
   }
 
   @override
@@ -66,7 +68,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff6229e8),
-      appBar: _isAppBarVisible ? SettingAppBar(title: reciverId!) : null,
+      appBar: _isAppBarVisible ? SettingAppBar(title: pageTitle!) : null,
       drawer: Drawer(
         child: _buildUserList(),
         backgroundColor: Colors.blue,
@@ -81,17 +83,18 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void SendMessage() async {
+    print('listview ${_listViewController.hasClients}');
     setState(() {
       if (_messageConroller.text.isNotEmpty) {
         _chatServices.sendMessage(reciverId!, _messageConroller.text);
         _messageConroller.clear();
       }
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _listViewController.animateTo(
-            _listViewController.position.maxScrollExtent,
-            curve: Curves.easeOut,
-            duration: Duration(milliseconds: 3));
-      });
+      // WidgetsBinding.instance.addPostFrameCallback((_) {
+      //   _listViewController.animateTo(
+      //       _listViewController.position.maxScrollExtent,
+      //       curve: Curves.easeOut,
+      //       duration: Duration(milliseconds: 300));
+      // });
     });
   }
 
@@ -107,19 +110,25 @@ class _ChatPageState extends State<ChatPage> {
             return CircularProgressIndicator();
           }
           List<DocumentSnapshot> messages = snapshot.data!.docs;
-          return ListView.builder(
-              controller: _listViewController,
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                return _buildMessageItem(messages[index]);
-              });
+          return ListView(
+            controller: _listViewController,
+            children: snapshot.data!.docs
+                .map((document) => _buildMessageItem(document))
+                .toList(),
+          );
+
+          // ListView.builder(
+          //     controller: _listViewController,
+          //     itemCount: messages.length,
+          //     itemBuilder: (context, index) {
+          //       return _buildMessageItem(messages[index]);
+          //     });
         });
   }
 
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    var alignment =
-        (data['senderId'] == _firebaseAuth.currentUser!.uid) ? true : false;
+    var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid);
     return MessageContainer(
       message: data['message'],
       id: data['senderEmail'].toString().split('@')[0],
@@ -180,6 +189,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         onTap: () {
           setState(() {
+            pageTitle = data['email'].toString().split('@')[0];
             reciverId = data['uid'];
           });
         },
