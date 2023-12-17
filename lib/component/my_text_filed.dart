@@ -24,21 +24,22 @@ class _MyTextFiledState extends State<MyTextFiled> {
         color: Colors.white,
         fontSize: 17,
       ),
-      controller: this.widget.controller,
-      obscureText: this.widget.obscureText,
+      controller: widget.controller,
+      obscureText: widget.obscureText,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        hintText: this.widget.hintNext,
+        hintText: widget.hintNext,
         hintStyle: TextStyle(
           color: Color.fromARGB(255, 161, 167, 228),
         ),
-        suffixIcon: this.widget.hintNext.toLowerCase() == 'password' ||
-                this.widget.hintNext.toLowerCase() == 'confirm password'
+        suffixIcon: widget.hintNext.toLowerCase() == 'password' ||
+                widget.hintNext.toLowerCase() == 'confirm password'
             ? IconButton(
                 icon: Icon(
                   widget.obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: Colors.blue,
                 ),
                 onPressed: () {
                   setState(() {

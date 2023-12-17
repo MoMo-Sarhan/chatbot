@@ -20,6 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final userNameController = TextEditingController();
   bool showPassword = true;
 
   void SignUp() async {
@@ -27,10 +28,11 @@ class _SignUpPageState extends State<SignUpPage> {
     try {
       if (emailController.text.isNotEmpty &&
           passwordController.text.isNotEmpty &&
-          confirmPasswordController.text.isNotEmpty) {
+          confirmPasswordController.text.isNotEmpty &&
+          userNameController.text.isNotEmpty) {
         if (passwordController.text == confirmPasswordController.text) {
-          await authService.signUpWithEmailAndPassword(
-              emailController.text, passwordController.text);
+          await authService.signUpWithEmailAndPassword(emailController.text,
+              passwordController.text, userNameController.text,gender);
         } else {
           passwordController.clear();
           confirmPasswordController.clear();
@@ -43,6 +45,9 @@ class _SignUpPageState extends State<SignUpPage> {
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
+
+  List<String> genderOptions = ['male', 'female'];
+  String gender = 'male';
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +81,38 @@ class _SignUpPageState extends State<SignUpPage> {
                 fontSize: 30,
               ),
             ),
+          ),
+          ListTile(
+            leading: Text(
+              'Gender',
+              style: TextStyle(color: Colors.grey, fontSize: 19),
+            ),
+            title: DropdownButton(
+                dropdownColor: Colors.green,
+                value: gender,
+                items: genderOptions.map((String item) {
+                  return DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: TextStyle(fontSize: 19, color: Colors.white),
+                      ));
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    gender = value!;
+                  });
+                }),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          MyTextFiled(
+              controller: userNameController,
+              hintNext: 'User Name',
+              obscureText: false),
+          SizedBox(
+            height: 30,
           ),
           MyTextFiled(
               controller: emailController,

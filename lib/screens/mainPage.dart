@@ -10,6 +10,7 @@ import 'package:chatbot/screens/notificationPage.dart';
 import 'package:chatbot/screens/settingsPage.dart';
 import 'package:chatbot/screens/ChatPage.dart';
 import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,32 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String userName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> userDoc = await FirebaseFirestore
+          .instance
+          .collection('users')
+          .doc(currentUser!.uid)
+          .get();
+      if (userDoc.exists) {
+        setState(() {
+          userName = userDoc['userName'];
+        });
+      }
+    } catch (e) {
+      print("Error in getting data from Firestore : $e");
+    }
+  }
+
   PageController _pageController = PageController();
   int _selectedIndex = 0;
   List<Widget> ListPages = [
@@ -31,7 +58,7 @@ class _MainPageState extends State<MainPage> {
     CommunityPage(),
     CoursesPage(),
     ChatPage(),
-    Settings(),
+    SettingsPage(),
   ];
   List<MyBottomBar> BottomBarIcon = [
     MyBottomBar(
@@ -98,7 +125,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   Text(
-                    'Mohamed Sarhan',
+                    userName,
                     style: TextStyle(
                       color: Colors.black,
                     ),
