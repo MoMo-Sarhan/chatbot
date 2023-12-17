@@ -190,7 +190,9 @@ class _ChatPageState extends State<ChatPage> {
         ),
         onTap: () {
           setState(() {
+
             pageTitle = data['userName'].toString();
+
             reciverId = data['uid'];
           });
         },
