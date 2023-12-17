@@ -14,7 +14,6 @@ class AuthService extends ChangeNotifier {
 
       // create a doc for the user if does'nt exits
 
-      print(' start create');
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
@@ -27,7 +26,7 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<UserCredential> signUpWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String UserName, String gender) async {
     try {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -36,6 +35,8 @@ class AuthService extends ChangeNotifier {
       _firestore.collection('users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
+        'userName': UserName,
+        'gender': gender,
       });
       print('finsed sign up create');
 
