@@ -71,7 +71,7 @@ class _ChatPageState extends State<ChatPage> {
       appBar: _isAppBarVisible ? SettingAppBar(title: pageTitle!) : null,
       drawer: Drawer(
         child: _buildUserList(),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xff6229e8),
       ),
       body: Column(children: [
         Expanded(
@@ -183,20 +183,35 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> data = docs.data()! as Map<String, dynamic>;
     if (_firebaseAuth.currentUser!.email != data['email']) {
       return ListTile(
+        leading: CircleAvatar(child: Icon(Icons.person)),
         title: Text(
-          data['email'],
+          data['userName'] ?? '',
           style: TextStyle(color: Colors.white),
         ),
         onTap: () {
           setState(() {
-            pageTitle = data['email'].toString().split('@')[0];
+            pageTitle = data['userName'].toString();
             reciverId = data['uid'];
           });
         },
       );
     } else {
-      return Container(
-        child: Text('me'),
+      return ListTile(
+        leading: CircleAvatar(
+          child: Icon(
+            data['gender'] == 'male' ? Icons.man : Icons.woman,
+          ),
+        ),
+        title: Text(
+          data['userName'],
+          style: TextStyle(color: Colors.white),
+        ),
+        onTap: () {
+          setState(() {
+            pageTitle = data['userName'].toString();
+            reciverId = data['uid'];
+          });
+        },
       );
     }
   }
