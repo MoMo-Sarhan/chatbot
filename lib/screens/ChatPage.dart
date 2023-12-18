@@ -132,6 +132,7 @@ class _ChatPageState extends State<ChatPage> {
     return MessageContainer(
       message: data['message'],
       id: data['senderEmail'].toString().split('@')[0],
+      time: data['timestamp'],
       alignment: alignment,
     );
   }
@@ -190,7 +191,6 @@ class _ChatPageState extends State<ChatPage> {
         ),
         onTap: () {
           setState(() {
-
             pageTitle = data['userName'].toString();
 
             reciverId = data['uid'];
@@ -201,7 +201,7 @@ class _ChatPageState extends State<ChatPage> {
       return ListTile(
         leading: CircleAvatar(
           child: Icon(
-            data['gender'] == 'male' ? Icons.man : Icons.woman,
+            data['gender'] == 'male' ? Icons.person : Icons.woman,
           ),
         ),
         title: Text(
