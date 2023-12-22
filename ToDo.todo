@@ -15,3 +15,13 @@
 //TODO - Reset page
 //TODO - add post page
 //TODO - ensure logout
+//TODO - community
+            post        
+                |______> uid
+                |______> content
+                |______> if has file
+                |______> likes
+                |______> comments     
+                                 |_____> uid
+                                 |_____> content
+
