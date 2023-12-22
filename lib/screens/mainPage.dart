@@ -124,9 +124,16 @@ class _MainPageState extends State<MainPage> {
                             ConnectionState.waiting) {
                           return CircularProgressIndicator();
                         } else if (snapshot.connectionState ==
-                            ConnectionState.done) {
+                                ConnectionState.done &&
+                            snapshot.hasData) {
                           return CircleAvatar(
                             backgroundImage: NetworkImage(snapshot.data!),
+                          );
+                        } else if (snapshot.data == null) {
+                          return CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'assets/images/icon.png',
+                            ),
                           );
                         } else {
                           return CircleAvatar(

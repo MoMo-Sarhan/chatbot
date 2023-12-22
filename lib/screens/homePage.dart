@@ -62,10 +62,17 @@ class _HomePageState extends State<HomePage> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
-              } else if (snapshot.connectionState == ConnectionState.done) {
+              } else if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData) {
                 return CircleAvatar(
                   radius: 70,
                   backgroundImage: NetworkImage(snapshot.data!),
+                );
+              } else if (snapshot.data == null) {
+                return CircleAvatar(
+                  backgroundImage: AssetImage(
+                    'assets/images/icon.png',
+                  ),
                 );
               } else {
                 return CircleAvatar(

@@ -185,7 +185,24 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> data = docs.data()! as Map<String, dynamic>;
     if (_firebaseAuth.currentUser!.email != data['email']) {
       return ListTile(
-        leading: CircleAvatar(child: Icon(Icons.person)),
+        leading: CircleAvatar(
+            child: FutureBuilder(
+          future: _chooseIcon.getImageByUid(uid: data['uid']),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            }
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData &&
+                snapshot.data != null) {
+              return CircleAvatar(
+                backgroundImage: NetworkImage(snapshot.data!),
+              );
+            } else {
+              return Icon(Icons.person);
+            }
+          },
+        )),
         title: Text(
           data['userName'] ?? '',
           style: TextStyle(color: Colors.white),
