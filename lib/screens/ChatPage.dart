@@ -4,6 +4,7 @@ import 'package:chatbot/component/MessageContainer.dart';
 import 'package:chatbot/component/my_text_filed.dart';
 import 'package:chatbot/component/setting_appbar.dart';
 import 'package:chatbot/services/chat_services.dart';
+import 'package:chatbot/services/chooseIcon_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _ChatPageState extends State<ChatPage> {
   bool _isAppBarVisible = true;
   String? reciverId;
   String? pageTitle;
+  ChooseIcon _chooseIcon = ChooseIcon();
 
   @override
   void initState() {
@@ -199,8 +201,19 @@ class _ChatPageState extends State<ChatPage> {
     } else {
       return ListTile(
         leading: CircleAvatar(
-          child: Icon(
-            data['gender'] == 'male' ? Icons.person : Icons.woman,
+          child: FutureBuilder(
+            future: _chooseIcon.getUserImageUrl(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.connectionState == ConnectionState.done) {
+                return CircleAvatar(
+                  backgroundImage: NetworkImage(snapshot.data!),
+                );
+              } else {
+                return Icon(Icons.person);
+              }
+            },
           ),
         ),
         title: Text(

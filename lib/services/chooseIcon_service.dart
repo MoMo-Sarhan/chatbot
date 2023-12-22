@@ -57,7 +57,11 @@ class ChooseIcon extends ChangeNotifier {
       }
     } else {
       // User not authenticated
-      return null!;
+      return await FirebaseStorage.instance
+          .ref()
+          .child('default-profile.jpg')
+          .getDownloadURL();
+      ;
     }
   }
 

@@ -19,6 +19,7 @@ PreferredSizeWidget CommunityAppBar({required String title}) {
           icon: Icon(
             Icons.add,
             size: 30,
+            color: Colors.blue,
           ))
     ],
     shape: RoundedRectangleBorder(

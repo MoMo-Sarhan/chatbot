@@ -57,7 +57,6 @@ class _MainPageState extends State<MainPage> {
   List<Widget> ListPages = [
     HomePage(),
     CommunityPage(),
-    CoursesPage(),
     ChatPage(),
     SettingsPage(),
   ];
@@ -68,11 +67,6 @@ class _MainPageState extends State<MainPage> {
         label: 'Community',
         ImageIcon: Icons.people_alt,
         index: 1,
-        onpressed: () {}),
-    MyBottomBar(
-        label: 'Courses',
-        ImageIcon: Icons.library_books,
-        index: 2,
         onpressed: () {}),
     MyBottomBar(
         label: 'Chat', ImageIcon: Icons.chat, index: 3, onpressed: () {}),
@@ -96,12 +90,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedIndex == 4 ||
-              _selectedIndex == 3 ||
-              _selectedIndex == 2 ||
-              _selectedIndex == 1
-          ? null
-          : AppBar(
+      appBar: _selectedIndex == 0
+          ? AppBar(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -116,8 +106,13 @@ class _MainPageState extends State<MainPage> {
                         return NotificationPage();
                       }));
                     },
-                    icon: Icon(Icons.notifications)),
-                IconButton(onPressed: LogOut, icon: Icon(Icons.logout)),
+                    icon: Icon(Icons.notifications, color: Colors.blue)),
+                IconButton(
+                    onPressed: LogOut,
+                    icon: Icon(
+                      Icons.logout,
+                      color: Colors.blue,
+                    )),
               ],
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -149,7 +144,8 @@ class _MainPageState extends State<MainPage> {
                   )
                 ],
               ),
-            ),
+            )
+          : null,
       body: PageView.builder(
           onPageChanged: (index) {
             setState(() {
