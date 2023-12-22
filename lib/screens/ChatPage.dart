@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatbot/component/MessageContainer.dart';
-import 'package:chatbot/component/delay.dart';
 import 'package:chatbot/component/my_text_filed.dart';
 import 'package:chatbot/component/setting_appbar.dart';
 import 'package:chatbot/services/chat_services.dart';

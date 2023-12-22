@@ -77,6 +77,12 @@ class _SettingsPageState extends State<SettingsPage> {
     ),
     Item(
         settingItem: SettingModel(
+            text: 'Change Icon',
+            icon_1: Icons.person,
+            icon_2: Icons.arrow_forward_ios,
+            onpressed: (){})),
+    Item(
+        settingItem: SettingModel(
             text: 'Change Name',
             icon_1: Icons.person,
             icon_2: Icons.arrow_forward_ios,

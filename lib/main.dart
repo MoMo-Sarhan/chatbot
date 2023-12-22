@@ -7,6 +7,7 @@ import 'package:chatbot/services/auth/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -28,26 +29,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _firebaseMessaging.requestPermission();
-  //   _firebaseMessaging.getToken().then((token) {
-  //     print('Firebase token:$token');
-  //   });
-  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //     print('recived message:$message');
-  //   });
-  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  //     print('recived message open app:$message');
-  //   });
-  // }
-
-  // Future<void> _handleBackGroundMessage(RemoteMessage message) async {
-  //   print('Handleing background message');
-  // }
 
   @override
   Widget build(BuildContext context) {
