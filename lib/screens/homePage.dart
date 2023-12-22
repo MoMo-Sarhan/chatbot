@@ -2,6 +2,7 @@
 
 import 'package:chatbot/screens/ChatPage.dart';
 import 'package:chatbot/screens/chatPage2.dart';
+import 'package:chatbot/services/chooseIcon_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  ChooseIcon _chooseIcon = ChooseIcon();
 
   String? getUserEmail() {
     User? user = FirebaseAuth.instance.currentUser;
@@ -53,8 +55,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildUserList(),
-    );
+        body: Column(
+      children: [
+        FutureBuilder(
+            future: _chooseIcon.getUserImageUrl(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.connectionState == ConnectionState.done) {
+                return CircleAvatar(
+                  radius: 70,
+                  backgroundImage: NetworkImage(snapshot.data!),
+                );
+              } else {
+                return CircleAvatar(
+                  backgroundImage: AssetImage(
+                    'assets/images/icon.png',
+                  ),
+                );
+              }
+            }),
+        Expanded(child: _buildUserList()),
+      ],
+    ));
   }
 
   Widget _buildUserList() {

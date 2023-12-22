@@ -10,6 +10,7 @@ import 'package:chatbot/screens/notificationPage.dart';
 import 'package:chatbot/screens/settingsPage.dart';
 import 'package:chatbot/screens/ChatPage.dart';
 import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:chatbot/services/chooseIcon_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -90,6 +91,8 @@ class _MainPageState extends State<MainPage> {
     print("Sign out successufl");
   }
 
+  ChooseIcon _chooseIcon = ChooseIcon();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,11 +122,25 @@ class _MainPageState extends State<MainPage> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(
-                      'assets/images/icon.png',
-                    ),
-                  ),
+                  FutureBuilder(
+                      future: _chooseIcon.getUserImageUrl(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.done) {
+                          return CircleAvatar(
+                            backgroundImage: NetworkImage(snapshot.data!),
+                          );
+                        } else {
+                          return CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'assets/images/icon.png',
+                            ),
+                          );
+                        }
+                      }),
                   Text(
                     userName,
                     style: TextStyle(

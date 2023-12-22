@@ -1,17 +1,29 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MessageContainer extends StatelessWidget {
-  const MessageContainer(
-      {super.key,
-      required this.message,
-      required this.id,
-      required this.alignment});
+  const MessageContainer({
+    super.key,
+    required this.message,
+    required this.id,
+    required this.alignment,
+    required this.time,
+  });
   final String id;
   final String message;
   final bool alignment;
+  final Timestamp time;
+
+  String getTime() {
+    DateTime timeData = time.toDate();
+    int hour = timeData.hour;
+    int second = timeData.second;
+    return hour.toString() + ':' + second.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +47,10 @@ class MessageContainer extends StatelessWidget {
             child: Text(id),
           ),
           Text(message),
+          Text(
+            getTime(),
+            style: TextStyle(color: Colors.blueGrey),
+          )
         ]),
       ),
     );

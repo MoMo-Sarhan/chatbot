@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatbot/component/MessageContainer.dart';
-import 'package:chatbot/component/delay.dart';
 import 'package:chatbot/component/my_text_filed.dart';
 import 'package:chatbot/component/setting_appbar.dart';
 import 'package:chatbot/services/chat_services.dart';
@@ -132,6 +131,7 @@ class _ChatPageState extends State<ChatPage> {
     return MessageContainer(
       message: data['message'],
       id: data['senderEmail'].toString().split('@')[0],
+      time: data['timestamp'],
       alignment: alignment,
     );
   }
@@ -190,7 +190,6 @@ class _ChatPageState extends State<ChatPage> {
         ),
         onTap: () {
           setState(() {
-
             pageTitle = data['userName'].toString();
 
             reciverId = data['uid'];
@@ -201,7 +200,7 @@ class _ChatPageState extends State<ChatPage> {
       return ListTile(
         leading: CircleAvatar(
           child: Icon(
-            data['gender'] == 'male' ? Icons.man : Icons.woman,
+            data['gender'] == 'male' ? Icons.person : Icons.woman,
           ),
         ),
         title: Text(
