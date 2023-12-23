@@ -6,6 +6,8 @@ import 'package:chatbot/models/postCardModel.dart';
 import 'package:chatbot/screens/AddPostPage.dart';
 import 'package:chatbot/services/chooseIcon_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -74,7 +76,10 @@ class _CommunityPageState extends State<CommunityPage> {
         icon: url,
         content: data['content'],
         time: data['timestamp'],
-        owner: await getUserName(data['userId']),
+        owner: await getUserName(
+          data['userId'],
+        ),
+        imagePath: await getPostImage(data['userId'], data['image'] ?? ''),
       ));
     }
 
@@ -97,7 +102,7 @@ class _CommunityPageState extends State<CommunityPage> {
         future: getPosts(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
@@ -115,6 +120,24 @@ class _CommunityPageState extends State<CommunityPage> {
         },
       ),
     );
+  }
+
+  Future<String> getPostImage(String uid, String imageName) async {
+    if (imageName.isEmpty) {
+      return imageName;
+    }
+    Reference storageRef = FirebaseStorage.instance
+        .ref()
+        .child('user_post_image/${uid}/${imageName}');
+    try {
+      String downloadURL = await storageRef.getDownloadURL();
+      return downloadURL ?? '';
+    } catch (e) {
+      print('Error getting user image URL: $e');
+      print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+      // Return a default image URL or handle the error as needed
+      return '';
+    }
   }
 
   Future<String> getUserName(String uid) async {

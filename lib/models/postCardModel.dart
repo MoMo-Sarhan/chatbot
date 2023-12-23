@@ -4,7 +4,7 @@ class PostCardModel {
   String owner;
   Timestamp time;
   String content;
-  String? ImagePath;
+  String imagePath;
   String icon;
   String likes;
 
@@ -13,6 +13,6 @@ class PostCardModel {
       required this.time,
       required this.content,
       required this.icon,
-      this.ImagePath,
+      required this.imagePath,
       required this.likes});
 }
