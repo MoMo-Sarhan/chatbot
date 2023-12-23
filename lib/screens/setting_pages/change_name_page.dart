@@ -1,6 +1,8 @@
 import 'package:chatbot/component/loginBottom.dart';
 import 'package:chatbot/component/my_text_filed.dart';
 import 'package:chatbot/component/setting_appbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChangeNamePage extends StatefulWidget {
@@ -37,11 +39,29 @@ class _ChangeNamePageState extends State<ChangeNamePage> {
           padding: const EdgeInsets.all(40.0),
           child: MyBottom(
               ontap: () {
+                changeName();
                 Navigator.pop(context);
               },
               text: 'Submit'),
         )
       ]),
     );
+  }
+
+  Future<void> changeName() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    try {
+      if (firstNameConroller.text.isNotEmpty &&
+          lastNameConroller.text.isNotEmpty) {
+        final data = FirebaseFirestore.instance
+            .collection('users')
+            .doc(currentUser!.uid);
+        data.update({
+          'userName': '${firstNameConroller.text} ${lastNameConroller.text}'
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }

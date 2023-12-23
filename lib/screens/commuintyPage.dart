@@ -99,6 +99,7 @@ class _CommunityPageState extends State<CommunityPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
+
           List<PostCardModel> postList = snapshot.data as List<PostCardModel>;
           return ListView.builder(
               itemCount: postList.length,
