@@ -22,7 +22,10 @@ class MessageContainer extends StatelessWidget {
     DateTime timeData = time.toDate();
     int hour = timeData.hour;
     int second = timeData.second;
-    return hour.toString() + ':' + second.toString();
+    int day = timeData.day;
+    int month = timeData.month;
+    int year = timeData.year;
+    return '$hour:$second $day/$month/$year';
   }
 
   @override

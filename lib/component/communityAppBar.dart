@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-PreferredSizeWidget CommunityAppBar({required String title}) {
+PreferredSizeWidget CommunityAppBar({required String title,required Function() ontap}) {
   return AppBar(
     actions: [
       Padding(
@@ -15,10 +15,11 @@ PreferredSizeWidget CommunityAppBar({required String title}) {
         ),
       ),
       IconButton(
-          onPressed: () {},
+          onPressed: ontap,
           icon: Icon(
             Icons.add,
             size: 30,
+            color: Colors.blue,
           ))
     ],
     shape: RoundedRectangleBorder(

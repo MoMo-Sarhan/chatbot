@@ -40,13 +40,19 @@ class ChooseIcon extends ChangeNotifier {
     User? user = auth.currentUser;
 
     if (user != null) {
-      Reference storageRef = FirebaseStorage.instance
-          .ref()
-          .child('user_images/${user.uid}/profile_image.jpg');
-
+      Reference storageRef =
+          FirebaseStorage.instance.ref().child('user_images/${user.uid}/');
       try {
-        String downloadURL = await storageRef.getDownloadURL();
-        return downloadURL;
+        ListResult result = await storageRef.listAll();
+        if (result.items.isNotEmpty) {
+          String downloadURL = await result.items.first.getDownloadURL();
+          return downloadURL;
+        } else {
+          return await FirebaseStorage.instance
+              .ref()
+              .child('default-profile.jpg')
+              .getDownloadURL();
+        }
       } catch (e) {
         print('Error getting user image URL: $e');
         // Return a default image URL or handle the error as needed
@@ -54,12 +60,42 @@ class ChooseIcon extends ChangeNotifier {
             .ref()
             .child('default-profile.jpg')
             .getDownloadURL();
+        ;
       }
     } else {
       // User not authenticated
-      return null!;
+      return await FirebaseStorage.instance
+          .ref()
+          .child('default-profile.jpg')
+          .getDownloadURL();
     }
   }
+
+  Future<String> getImageByUid({required String uid}) async {
+    Reference storageRef =
+        FirebaseStorage.instance.ref().child('user_images/$uid/');
+    try {
+      ListResult result = await storageRef.listAll();
+      print(result.items);
+      if (result.items.isNotEmpty) {
+        String downloadURL = await result.items.first.getDownloadURL();
+        return downloadURL;
+      } else {
+        return await FirebaseStorage.instance
+            .ref()
+            .child('study.jpg')
+            .getDownloadURL();
+      }
+    } catch (e) {
+      print('Error getting user image URL: $e');
+      // Return a default image URL or handle the error as needed
+      return await FirebaseStorage.instance
+          .ref()
+          .child('study.jpg')
+          .getDownloadURL();
+    }
+  }
+
 
   // Send message
 }

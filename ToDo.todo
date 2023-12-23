@@ -10,4 +10,18 @@
 
 
 
-// nothing just train on git tools
+
+//TODO - creating get image service to the chage page users
+//TODO - Reset page
+//TODO - add post page
+//TODO - ensure logout
+//TODO - community
+            post        
+                |______> uid
+                |______> content
+                |______> if has file
+                |______> likes
+                |______> comments     
+                                 |_____> uid
+                                 |_____> content
+

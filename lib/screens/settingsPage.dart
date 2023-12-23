@@ -80,7 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
             text: 'Change Icon',
             icon_1: Icons.person,
             icon_2: Icons.arrow_forward_ios,
-            onpressed: (){})),
+            onpressed: () {})),
     Item(
         settingItem: SettingModel(
             text: 'Change Name',
@@ -92,18 +92,6 @@ class _SettingsPageState extends State<SettingsPage> {
             text: 'Get Notifications',
             icon_1: Icons.notifications,
             icon_2: Icons.toggle_off_outlined,
-            onpressed: () {})),
-    Item(
-        settingItem: SettingModel(
-            text: 'Language',
-            icon_1: Icons.language,
-            icon_2: Icons.arrow_forward_ios,
-            onpressed: () {})),
-    Item(
-        settingItem: SettingModel(
-            text: 'Apperance',
-            icon_1: Icons.dark_mode_outlined,
-            icon_2: Icons.dark_mode,
             onpressed: () {})),
     Item(
         settingItem: SettingModel(
