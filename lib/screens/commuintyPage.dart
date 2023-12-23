@@ -99,13 +99,18 @@ class _CommunityPageState extends State<CommunityPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
-
-          List<PostCardModel> postList = snapshot.data as List<PostCardModel>;
-          return ListView.builder(
-              itemCount: postList.length,
-              itemBuilder: (context, index) {
-                return PostCard(post: postList[index]);
-              });
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            List<PostCardModel> postList = snapshot.data as List<PostCardModel>;
+            return ListView.builder(
+                itemCount: postList.length,
+                itemBuilder: (context, index) {
+                  return PostCard(post: postList[index]);
+                });
+          }
+          return Center(
+            child: Text('Error'),
+          );
         },
       ),
     );
