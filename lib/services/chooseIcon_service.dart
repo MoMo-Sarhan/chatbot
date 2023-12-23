@@ -93,9 +93,9 @@ class ChooseIcon extends ChangeNotifier {
           .ref()
           .child('study.jpg')
           .getDownloadURL();
-      ;
     }
   }
+
 
   // Send message
 }

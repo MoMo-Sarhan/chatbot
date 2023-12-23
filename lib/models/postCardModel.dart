@@ -1,15 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostCardModel {
   String owner;
-  String duration;
-  String mainPost;
-  String? postImage;
-  String? icon;
+  Timestamp time;
+  String content;
+  String? ImagePath;
+  String icon;
+  String likes;
 
   PostCardModel(
       {required this.owner,
-      required this.duration,
-      required this.mainPost,
-      this.icon,
-      this.postImage});
+      required this.time,
+      required this.content,
+      required this.icon,
+      this.ImagePath,
+      required this.likes});
 }

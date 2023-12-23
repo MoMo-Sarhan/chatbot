@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:chatbot/models/postCardModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PostCard extends StatefulWidget {
@@ -13,6 +14,17 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   bool flage = false;
+
+  String getTime(Timestamp time) {
+    DateTime timeData = time.toDate();
+    int hour = timeData.hour;
+    int second = timeData.second;
+    int day = timeData.day;
+    int month = timeData.month;
+    int year = timeData.year;
+    return '$hour:$second $day/$month/$year';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -27,13 +39,15 @@ class _PostCardState extends State<PostCard> {
               // You can replace this with user profile image
 
               backgroundImage: widget.post.icon != null
-                  ? AssetImage(widget.post.icon!)
+                  ? NetworkImage(widget.post.icon)
                   : null,
-              backgroundColor: Colors.blue,
             ),
             title:
                 Text(widget.post.owner), // Replace with the post author's name
-            subtitle: Text(widget.post.duration), // Replace with post timestamp
+            subtitle: Text(
+              getTime(widget.post.time),
+              style: TextStyle(color: Colors.amber),
+            ), // Replace with post timestamp
             trailing: IconButton(
               icon: Icon(Icons.more_horiz),
               onPressed: () {},
@@ -42,14 +56,15 @@ class _PostCardState extends State<PostCard> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
-              widget.post.mainPost,
+              widget.post.content,
               style: TextStyle(fontSize: 16),
             ),
           ),
-          if (widget.post.postImage != null)
-            Image.asset(widget.post.postImage!),
+          if (widget.post.ImagePath != null)
+            Image.asset(widget.post.ImagePath!),
           ButtonBar(
             children: [
+              Text(widget.post.likes.toString()),
               IconButton(
                 icon: Icon(
                   Icons.thumb_up,
@@ -68,18 +83,16 @@ class _PostCardState extends State<PostCard> {
                   // Handle comment button action
                 },
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.share,
-                ),
-                onPressed: () {
-                  // Handle share button action
-                },
-              ),
             ],
           ),
         ],
       ),
     );
   }
+  void addLike(){
+    
+  }
+
+
+
 }
