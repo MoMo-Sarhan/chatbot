@@ -108,6 +108,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   return PostCard(post: postList[index]);
                 });
           }
+          print(snapshot.error);
           return Center(
             child: Text('Error'),
           );
