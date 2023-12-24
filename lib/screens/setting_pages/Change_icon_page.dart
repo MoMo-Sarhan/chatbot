@@ -52,20 +52,6 @@ class _ChangeIconPageState extends State<ChangeIconPage> {
                     )))
           ],
         )
-
-        // Column(
-        //   children: [
-        //     CircleAvatar(
-        //         child: Image(
-        //             image:
-        //                 NetworkImage(_chooseIcon.getUserImageUrl().toString()))),
-        //     Center(
-        //       child: IconButton(
-        //           onPressed: _chooseIcon.chooseImage,
-        //           icon: Icon(Icons.add_a_photo)),
-        //     ),
-        //   ],
-        // ),
         );
   }
 }

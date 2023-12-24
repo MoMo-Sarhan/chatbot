@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 class ChooseIcon extends ChangeNotifier {
   Future<void> chooseImage() async {
     final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       // You can now upload the picked image to Firebase Storage
       String imagePath = pickedFile.path;
@@ -95,7 +95,6 @@ class ChooseIcon extends ChangeNotifier {
           .getDownloadURL();
     }
   }
-
 
   // Send message
 }
