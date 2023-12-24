@@ -1,19 +1,14 @@
 //TODO - create page for every item of setting and adding it to the pageview
-//TODO - create chat screen
-//TODO - create courses  screen
-//TODO - create home screen 
-//FIXME - icon login and return to the home page
-//TODO - create new branch and merge it to the master
+//TODO - create chat screen                                                 DONE
+//TODO - create courses  screen                                             DONE
+//TODO - create home screen                                                 DONE
+//FIXME - icon login and return to the home page                            DONE
+//TODO - create new branch and merge it to the master                       DONE
 //TODO - creat dark mode
-//TODO - create reset passowrd screen
-//TODO - create reset passowrd screen
-
-
-
-
-//TODO - creating get image service to the chage page users
-//TODO - Reset page
-//TODO - add post page
+//TODO - create reset passowrd screen                                       DONE
+//TODO - creating get image service to the chage page users                 DONE
+//TODO - Reset page                                                         DONE  
+//TODO - add post page                                                      DONE
 //TODO - ensure logout
 //TODO - community
             post        
@@ -26,5 +21,7 @@
                                  |_____> content
 
 //TODO - comment page
+//TODO - notification
 //TODO - add likes
-// convert likes into int
+//TODO - adding privcey and 
+//TODO convert likes into int
