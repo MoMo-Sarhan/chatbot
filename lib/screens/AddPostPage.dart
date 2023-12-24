@@ -40,6 +40,11 @@ class _AddPostPageState extends State<AddPostPage> {
           SizedBox(
             height: 50,
           ),
+          CircleAvatar(
+            radius: 150,
+            backgroundColor: Colors.deepPurple,
+            child: imagePath != null ? Image.file(File(imagePath!)) : null,
+          ),
           Center(
             child: IconButton(
               onPressed: chooseImage,
@@ -62,10 +67,12 @@ class _AddPostPageState extends State<AddPostPage> {
   // load image
   Future<void> chooseImage() async {
     final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       // You can now upload the picked image to Firebase Storage
-      imagePath = pickedFile.path;
+      setState(() {
+        imagePath = pickedFile.path;
+      });
       print(imagePath);
     }
   }

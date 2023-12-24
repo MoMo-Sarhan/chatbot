@@ -7,14 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChooseIcon extends ChangeNotifier {
-  Future<void> chooseImage() async {
+  Future<String> chooseImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       // You can now upload the picked image to Firebase Storage
       String imagePath = pickedFile.path;
       uploadImage(imagePath);
+      return imagePath;
     }
+    return null!;
   }
 
   Future<void> uploadImage(String filePath) async {

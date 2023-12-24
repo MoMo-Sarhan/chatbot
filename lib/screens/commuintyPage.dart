@@ -79,7 +79,7 @@ class _CommunityPageState extends State<CommunityPage> {
         owner: await getUserName(
           data['userId'],
         ),
-        imagePath: await getPostImage(data['userId'], data['image'] ?? ''),
+        imagePath: await getPostImage(data['userId'], data['image'] ?? ' '),
       ));
     }
 

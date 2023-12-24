@@ -9,11 +9,11 @@ class MessageContainer extends StatelessWidget {
   const MessageContainer({
     super.key,
     required this.message,
-    required this.id,
+    required this.userName,
     required this.alignment,
     required this.time,
   });
-  final String id;
+  final String userName;
   final String message;
   final bool alignment;
   final Timestamp time;
@@ -47,7 +47,7 @@ class MessageContainer extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Align(
             alignment: Alignment.center,
-            child: Text(id),
+            child: Text(userName),
           ),
           Text(message),
           Text(

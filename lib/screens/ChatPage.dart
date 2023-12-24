@@ -28,6 +28,20 @@ class _ChatPageState extends State<ChatPage> {
   String? pageTitle;
   ChooseIcon _chooseIcon = ChooseIcon();
 
+  Future<String> getUserName(String uid) async {
+    try {
+      DocumentSnapshot users =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      if (users.exists) {
+        return users['userName'].toString();
+      }
+    } catch (e) {
+      print("from me:$e");
+      return null!;
+    }
+    return null!;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -90,12 +104,6 @@ class _ChatPageState extends State<ChatPage> {
         _chatServices.sendMessage(reciverId!, _messageConroller.text);
         _messageConroller.clear();
       }
-      // WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   _listViewController.animateTo(
-      //       _listViewController.position.maxScrollExtent,
-      //       curve: Curves.easeOut,
-      //       duration: Duration(milliseconds: 300));
-      // });
     });
   }
 
@@ -132,7 +140,7 @@ class _ChatPageState extends State<ChatPage> {
     var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid);
     return MessageContainer(
       message: data['message'],
-      id: data['senderEmail'].toString().split('@')[0],
+      userName: data['senderEmail'].toString().split('@')[0],
       time: data['timestamp'],
       alignment: alignment,
     );
@@ -234,7 +242,7 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ),
         title: Text(
-          data['userName'],
+          'Me',
           style: TextStyle(color: Colors.white),
         ),
         onTap: () {
