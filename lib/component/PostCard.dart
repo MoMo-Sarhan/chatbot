@@ -60,8 +60,8 @@ class _PostCardState extends State<PostCard> {
               style: TextStyle(fontSize: 16),
             ),
           ),
-          if (widget.post.ImagePath != null)
-            Image.asset(widget.post.ImagePath!),
+          if (widget.post.imagePath.isNotEmpty )
+            Image.network(widget.post.imagePath),
           ButtonBar(
             children: [
               Text(widget.post.likes.toString()),
@@ -89,10 +89,6 @@ class _PostCardState extends State<PostCard> {
       ),
     );
   }
-  void addLike(){
-    
-  }
 
-
-
+  void addLike() {}
 }

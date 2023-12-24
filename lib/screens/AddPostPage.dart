@@ -86,7 +86,7 @@ class _AddPostPageState extends State<AddPostPage> {
         'content': _contentConroller.text,
         'timestamp': Timestamp.now(),
         'likes': '0',
-        'image': imagePath != null ? imagePath!.split('/').last : null
+        'image': imagePath != null ? imagePath!.split('/').last : ''
       });
       Navigator.pop(context);
     }
