@@ -2,6 +2,7 @@
 
 import 'package:chatbot/component/loginBottom.dart';
 import 'package:chatbot/component/my_text_filed.dart';
+import 'package:chatbot/screens/ResetPage.dart';
 import 'package:chatbot/screens/SignUpPage.dart';
 import 'package:chatbot/screens/mainPage.dart';
 import 'package:chatbot/services/auth/auth_service.dart';
@@ -103,7 +104,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (conext) {
+                        return ResetPage();
+                      }));
+                    },
                     child: Text(
                       'Reset now!',
                       style: TextStyle(
