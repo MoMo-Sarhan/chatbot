@@ -71,15 +71,25 @@ class _CommunityPageState extends State<CommunityPage> {
     for (QueryDocumentSnapshot document in querySnapshot.docs) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
       String url = await _chooseIcon.getImageByUid(uid: data['userId']);
+      String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+      bool _ifisLiked = false;
+      if (data.containsKey('likesId')) {
+        List<dynamic> likesId = data['likesId'];
+        if (likesId.contains(currentUserId)) {
+          _ifisLiked = true;
+        }
+      }
       postList.add(PostCardModel(
-        likes: data['likes'],
+        numberOfLikes: data['likes'],
         icon: url,
         content: data['content'],
         time: data['timestamp'],
         owner: await getUserName(
           data['userId'],
         ),
+        postId: document.id,
         imagePath: await getPostImage(data['userId'], data['image'] ?? ' '),
+        ifIsLiked: _ifisLiked,
       ));
     }
 
