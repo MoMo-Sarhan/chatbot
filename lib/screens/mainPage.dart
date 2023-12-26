@@ -90,6 +90,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff6229e8),
       appBar: _selectedIndex == 0
           ? AppBar(
               shape: RoundedRectangleBorder(

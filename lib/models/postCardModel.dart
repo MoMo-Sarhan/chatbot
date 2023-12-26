@@ -6,7 +6,9 @@ class PostCardModel {
   String content;
   String imagePath;
   String icon;
-  String likes;
+  String numberOfLikes;
+  bool ifIsLiked;
+  String postId;
 
   PostCardModel(
       {required this.owner,
@@ -14,5 +16,7 @@ class PostCardModel {
       required this.content,
       required this.icon,
       required this.imagePath,
-      required this.likes});
+      required this.numberOfLikes,
+      required this.postId,
+      required this.ifIsLiked,});
 }

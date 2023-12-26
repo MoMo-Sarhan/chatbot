@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:chatbot/models/postCardModel.dart';
+import 'package:chatbot/reusableFunc.dart';
+import 'package:chatbot/screens/commentPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class PostCard extends StatefulWidget {
@@ -13,16 +16,12 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
-  bool flage = false;
+  bool? flage;
 
-  String getTime(Timestamp time) {
-    DateTime timeData = time.toDate();
-    int hour = timeData.hour;
-    int second = timeData.second;
-    int day = timeData.day;
-    int month = timeData.month;
-    int year = timeData.year;
-    return '$hour:$second $day/$month/$year';
+  @override
+  void initState() {
+    super.initState();
+    flage = widget.post.ifIsLiked;
   }
 
   @override
@@ -60,19 +59,20 @@ class _PostCardState extends State<PostCard> {
               style: TextStyle(fontSize: 16),
             ),
           ),
-          if (widget.post.imagePath.isNotEmpty )
+          if (widget.post.imagePath.isNotEmpty)
             Image.network(widget.post.imagePath),
           ButtonBar(
             children: [
-              Text(widget.post.likes.toString()),
+              Text(widget.post.numberOfLikes),
               IconButton(
                 icon: Icon(
                   Icons.thumb_up,
-                  color: flage ? Colors.blue : Colors.black,
+                  color: flage! ? Colors.blue : Colors.black,
                 ),
                 onPressed: () {
                   setState(() {
-                    flage = !flage;
+                    flage = !flage!;
+                    addLike();
                   });
                   // Handle like button action
                 },
@@ -81,6 +81,9 @@ class _PostCardState extends State<PostCard> {
                 icon: Icon(Icons.comment),
                 onPressed: () {
                   // Handle comment button action
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CommentsPage(postId: widget.post.postId,);
+                  }));
                 },
               ),
             ],
@@ -90,5 +93,38 @@ class _PostCardState extends State<PostCard> {
     );
   }
 
-  void addLike() {}
+
+  Future<void> addLike() async {
+    int newlikes = int.parse(widget.post.numberOfLikes);
+    if (flage!) {
+      newlikes = newlikes + 1;
+    } else {
+      newlikes = newlikes - 1;
+    }
+    widget.post.numberOfLikes = newlikes.toString();
+    var selectedPost =
+        FirebaseFirestore.instance.collection('posts').doc(widget.post.postId);
+    await selectedPost.update({'likes': newlikes.toString()});
+
+    // add the user in the likesid filed
+    // get the fileds of the post
+    var posts = await selectedPost.get();
+    final String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+
+    if (posts.data()!.containsKey('likesId')) {
+      List<dynamic> likesId = posts['likesId'];
+      if (!flage!) {
+        likesId.remove(currentUserId);
+      } else {
+        likesId.add(currentUserId);
+      }
+      selectedPost.update({
+        'likesId': likesId,
+      });
+    } else {
+      selectedPost.update({
+        'likesId': <String>[currentUserId],
+      });
+    }
+  }
 }
