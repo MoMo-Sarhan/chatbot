@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:chatbot/models/postCardModel.dart';
+import 'package:chatbot/reusableFunc.dart';
+import 'package:chatbot/screens/commentPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +81,9 @@ class _PostCardState extends State<PostCard> {
                 icon: Icon(Icons.comment),
                 onPressed: () {
                   // Handle comment button action
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CommentsPage(postId: widget.post.postId,);
+                  }));
                 },
               ),
             ],
@@ -88,15 +93,6 @@ class _PostCardState extends State<PostCard> {
     );
   }
 
-  String getTime(Timestamp time) {
-    DateTime timeData = time.toDate();
-    int hour = timeData.hour;
-    int second = timeData.second;
-    int day = timeData.day;
-    int month = timeData.month;
-    int year = timeData.year;
-    return '$hour:$second $day/$month/$year';
-  }
 
   Future<void> addLike() async {
     int newlikes = int.parse(widget.post.numberOfLikes);

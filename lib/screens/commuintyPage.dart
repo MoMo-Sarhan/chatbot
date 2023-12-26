@@ -3,6 +3,7 @@
 import 'package:chatbot/component/PostCard.dart';
 import 'package:chatbot/component/communityAppBar.dart';
 import 'package:chatbot/models/postCardModel.dart';
+import 'package:chatbot/reusableFunc.dart';
 import 'package:chatbot/screens/AddPostPage.dart';
 import 'package:chatbot/services/chooseIcon_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -59,6 +60,7 @@ class _CommunityPageState extends State<CommunityPage> {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return AddPostPage();
     }));
+    setState(() {});
   }
 
   Future<List<PostCardModel>> getPosts() async {
@@ -148,19 +150,5 @@ class _CommunityPageState extends State<CommunityPage> {
       // Return a default image URL or handle the error as needed
       return '';
     }
-  }
-
-  Future<String> getUserName(String uid) async {
-    try {
-      DocumentSnapshot users =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
-      if (users.exists) {
-        return users['userName'].toString();
-      }
-    } catch (e) {
-      print("from me:$e");
-      return null!;
-    }
-    return null!;
   }
 }
